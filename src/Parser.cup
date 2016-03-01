@@ -1,0 +1,57 @@
+//reference: http://www2.cs.tum.edu/projekte/cup/examples.php
+//Diala aldahabi
+
+import java_cup.runtime.*;
+
+parser code
+{:
+    public void syntax_error(Symbol current_token)
+    {
+        syntaxErrors = true;
+        report_error("Syntax error at line " + (current_token.left + 1) +
+                    ", column " + current_token.right + "\n",  null);
+    }
+
+    public boolean syntaxErrors = false;
+:}
+
+
+init with {: lexer.init(); :};
+scan with {: return lexer.next_token(); :};
+
+terminal            STRING, RATIONAL, TDEF, CHAR, TOP, NOT, AND, DIVISION;
+terminal            POWER, BOOL, LESSTHAN, EQUAL, NOTEQUAL, FDEF, FLOAT;
+terminal            ENDDO, INT, MAIN, MINUS, TIMES, READ, PRINT, ALIAS;
+terminal            LESSTHANEQUAL, OR, DICT, SEQ, IN, ENDIF, IMPLIES, LEN;
+terminal            CONCAT, WHILE, DO, FORALL, RETURN, ELSEIF, IF, THEN;
+terminal            ELSE, RPAREN, LPAREN, LBRACE, RBRACE, SEMICOLON;
+terminal            COMMA;
+
+
+non terminal        expr, expr_list, expr_len;
+
+precedence left PLUS, MINUS, DIV, CONCAT, AND, OR, TIMES, IMPLIES;
+precedence right IN, POWER, ASSIGN;
+precedence nonassoc NOT, LESSTHAN, LESSTHANEQUAL, EQUAL, NOTEQUAL;
+
+expr_list ::= expr         
+            | expr COMMA expr_list                  
+;
+expr      ::= expr PLUS  expr         
+             | expr MINUS expr        
+             | expr TIMES expr        
+             | expr POWER expr 
+             | expr DIVISION expr        
+             | expr LESSTHAN expr        
+             | expr LESSTHANEQUAL expr   
+             | expr IMPLIES expr        
+             | expr EQUAL expr        
+             | expr NOTEQUAL expr 
+             | expr CONCAT expr        
+             | expr OR expr        
+             | expr AND expr    
+             | expr IN expr   
+;
+
+expr_len ::= LEN LPAREN expr RPAREN;
+       
