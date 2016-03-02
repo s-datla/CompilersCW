@@ -1,20 +1,22 @@
 import java_cup.runtime.*;
 
 %%
+
 %class Lexer
 %unicode
 %cup
 %line
 %column
+%debug
 
 %{
 	private 
 	StringBuffer input = new StringBuffer();
 	private Token token(int type) {
-		return new Token(type, line, col);
+		return new Token(type, yyline, yycolumn);
 	}
 	private Token token(int type, Object val) {
-		return new Token(type, line, col, val);
+		return new Token(type, yyline, yycolumn, val);
 	}
 %}
 
@@ -30,7 +32,7 @@ MultipleLineComment = "/#" [^#]~ "#/" | "/#" "#"+ "/"
 Letter  = [a-zA-Z]
 Digit = [0-9]
 
-Punctuation  = " " | "!" | """ | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "]" | "{" | "}" | "\" | "^" | "_" | "`" | "~" | "|"
+Punctuation  = (" " | "!" | """ | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "]" | "{" | "}" | "\" | "^" | "_" | "`" | "~" | "|")
 
 ID_Character = {Letter} | {Digit} | "_"
 
@@ -94,8 +96,7 @@ CharChar = [^\n\r\'\\]
 	"%"					{return token(tok.SYM_PRCNT)}
 	"<="				{return token(tok.LEQ)}
 	"=>"				{return token(tok.GEQ)}	
-	"+="				{return token(tok.PLUSEQ)}
-	"-="				{return token(tok.MINEQ)}
+	"-"					{return token(tok.SYM_MINUS)}
 
 // 	Logical Operators
 
@@ -113,7 +114,6 @@ CharChar = [^\n\r\'\\]
 	"("					{return token(tok.SYM_LPAREN)}
 	")"					{return token(tok.SYM_RPAREN)}
 	","					{return token(tok.SYM_COMMA)}
-	"-"					{return token(tok.SYM_MINUS)}
 	"."					{return token(tok.SYM_PERIOD)}
 	"/"					{return token(tok.SYM_FSLASH)}
 	":"					{return token(tok.SYM_COLON)}
@@ -130,9 +130,18 @@ CharChar = [^\n\r\'\\]
 	"~"					{return token(tok.SYM_TILDE)}
 	"|"					{return token(tok.SYM_PIPE)}
 
+//	Boolean Values
+	
+	"T"					{return token(tok.BOOLEAN,true)}
+	"F"					{return token(tok.BOOLEAN,false)}
+
 // Macros
 	
-
+	{Identifier}		{return token(tok.IDENT,yytext());}
+	{Integer}			{return token(tok.INT_LITERAL,new Integer(yytext()));}
+	{Float}				{return token(tok.FLOAT_LITERAL,new Float(yytext().substring(0,yylength()-1)));}
+	{Delimiter}			{/*	Don't do anything */}
+	{LineEnd}			{/*	Don't do anything */}
 }
 
 <STRING> {
@@ -149,18 +158,29 @@ CharChar = [^\n\r\'\\]
 	"\\\""				{string.append('\"');}
 	"\\'"				{string.append('\'');}
 	"\\\\"				{string.append('\\');}
+
+//	Error Checking
 	\\.					{throw new RunTimeException("Illegal Escape Character \" + yytext() + "\"");}
+	{LineEnd}			{throw new RunTimeException("Illegal Termination of String");}
 	
 }
 
 <CHARLITERAL> {
 
-	{CharChar}+\'		
-	\\t 				{string.append('\t');}
-	\\n 				{string.append('\n');}
-	\\r 				{string.append('\r');}
-	\\\"				{string.append('\"');}
-	\\					{string.append('\\');}
+	{CharChar}\'		{yybegin(YYINITIAL);return token(CHAR_LITERAL,yytext().charAt(0));}
+	"\\b"\' 			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\b');}
+	"\\f"\' 			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\f');}
+	"\\t"\' 			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\t');}
+	"\\n"\'				{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\n');}
+	"\\r"\'				{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\r');}
+	"\\\""\'			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\"');}
+	"\\'"\'				{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\'');}
+	"\\\\"\'			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\\');}
+
+//	Error Checking
+	\\.					{throw new RunTimeException("Illegal Escape Character \" + yytext() + "\"");}
+	{LineEnd}			{throw new RunTimeException("Illegal Termination of String");}
+
 
 }
 //	Error Checking
