@@ -11,11 +11,11 @@ import java_cup.runtime.*;
 
 %{
 	StringBuffer input = new StringBuffer();
-	private Token token(int type) {
-		return new Token(type, yyline, yycolumn);
+	private Symbol symbol(int type) {
+		return new Symbol(type, yyline, yycolumn);
 	}
-	private Token token(int type, Object val) {
-		return new Token(type, yyline, yycolumn, val);
+	private Symbol symbol(int type, Object val) {
+		return new Symbol(type, yyline, yycolumn, val);
 	}
 %}
 
@@ -55,89 +55,89 @@ CharChar = [^\n\r\'\\]
 
 //	Predefined Function Names
 
-	"main"				{return token(tok.MAIN);}
-	"dict"				{return token(tok.DICT);}
-	"seq"				{return token(tok.SEQ);}
-	"char"				{return token(tok.CHAR);}
-	"bool"				{return token(tok.BOOL);}	
-	"int"				{return token(tok.INT);}
-	"rat"				{return token(tok.RAT);}
-	"float"				{return token(tok.FLOAT);}
-	"top"				{return token(tok.TOP);}
-	"in"				{return token(tok.IN);}
-	"len"				{return token(tok.LEN);}
-	"tdef"				{return token(tok.TDEF);}
-	"fdef"				{return token(tok.FDEF);}
-	"alias"				{return token(tok.ALIAS);}
-	"void"				{return token(tok.VOID);}
-	"if"				{return token(tok.IFEL);}
-	"else"				{return token(tok.ELSE);}
-	"elif"				{return token(tok.ELIF);}
-	"while"				{return token(tok.WHILE);}
-	"forall"			{return token(tok.FORALL);}
-	"read"				{return token(tok.READ);}
-	"print"				{return token(tok.PRINT);}
-	"then"				{return token(tok.THEN);}
-	"fi"				{return token(tok.FI);}
-	"do"				{return token(tok.DO);}
-	"od"				{return token(tok.OD);}
-	"return"			{return token(tok.RETURN);}
+	"main"				{return symbol(sym.MAIN);}
+	"dict"				{return symbol(sym.DICT);}
+	"seq"				{return symbol(sym.SEQ);}
+	"char"				{return symbol(sym.CHAR);}
+	"bool"				{return symbol(sym.BOOL);}	
+	"int"				{return symbol(sym.INT);}
+	"rat"				{return symbol(sym.RAT);}
+	"float"				{return symbol(sym.FLOAT);}
+	"top"				{return symbol(sym.TOP);}
+	"in"				{return symbol(sym.IN);}
+	"len"				{return symbol(sym.LEN);}
+	"tdef"				{return symbol(sym.TDEF);}
+	"fdef"				{return symbol(sym.FDEF);}
+	"alias"				{return symbol(sym.ALIAS);}
+	"void"				{return symbol(sym.VOID);}
+	"if"				{return symbol(sym.IFEL);}
+	"else"				{return symbol(sym.ELSE);}
+	"elif"				{return symbol(sym.ELIF);}
+	"while"				{return symbol(sym.WHILE);}
+	"forall"			{return symbol(sym.FORALL);}
+	"read"				{return symbol(sym.READ);}
+	"print"				{return symbol(sym.PRINT);}
+	"then"				{return symbol(sym.THEN);}
+	"fi"				{return symbol(sym.FI);}
+	"do"				{return symbol(sym.DO);}
+	"od"				{return symbol(sym.OD);}
+	"return"			{return symbol(sym.RETURN);}
 
 //	Mathematical Operators
 
-	"*"					{return token(tok.SYM_STAR);}
-	"+"					{return token(tok.SYM_PLUS);}
-	"<"					{return token(tok.SYM_LARROW);}
-	"="					{return token(tok.SYM_EQUAL);}
-	">"					{return token(tok.SYM_RARROW);}
-	"^"					{return token(tok.SYM_CARET);}
-	"%"					{return token(tok.SYM_PRCNT);}
-	"<="				{return token(tok.LEQ);}
-	"=>"				{return token(tok.GEQ);}	
-	"-"					{return token(tok.SYM_MINUS);}
+	"*"					{return symbol(sym.SYM_STAR);}
+	"+"					{return symbol(sym.SYM_PLUS);}
+	"<"					{return symbol(sym.SYM_LARROW);}
+	"="					{return symbol(sym.SYM_EQUAL);}
+	">"					{return symbol(sym.SYM_RARROW);}
+	"^"					{return symbol(sym.SYM_CARET);}
+	"%"					{return symbol(sym.SYM_PRCNT);}
+	"<="				{return symbol(sym.LEQ);}
+	"=>"				{return symbol(sym.GEQ);}	
+	"-"					{return symbol(sym.SYM_MINUS);}
 
 // 	Logical Operators
 
-	"||"				{return token(tok.SYM_OR);}
-	"&&"				{return token(tok.SYM_AND);}
-	"=="				{return token(tok.EQEQ);}
-	"!="				{return token(tok.NOTEQ);}
+	"||"				{return symbol(sym.SYM_OR);}
+	"&&"				{return symbol(sym.SYM_AND);}
+	"=="				{return symbol(sym.EQEQ);}
+	"!="				{return symbol(sym.NOTEQ);}
 
 //	Punctuation
 
-	"!"					{return token(tok.SYM_EXCLPNT);}
-	"#"					{return token(tok.SYM_HASH);}
-	"$"					{return token(tok.SYM_DOLLAR);}
-	"&"					{return token(tok.SYM_AMP);}
-	"("					{return token(tok.SYM_LPAREN);}
-	")"					{return token(tok.SYM_RPAREN);}
-	","					{return token(tok.SYM_COMMA);}
-	"."					{return token(tok.SYM_PERIOD);}
-	"/"					{return token(tok.SYM_FSLASH);}
-	":"					{return token(tok.SYM_COLON);}
-	";"					{return token(tok.SYM_SEMI);}
-	"?"					{return token(tok.SYM_QSTN);}
-	"@"					{return token(tok.SYM_AT);}
-	"["					{return token(tok.SYM_LSQR);}
-	"]"					{return token(tok.SYM_RSQR);}
-	"{"					{return token(tok.SYM_LCRL);}
-	"}"					{return token(tok.SYM_RCRL);}
-	\\					{return token(tok.SYM_BSLASH);}
-	"_"					{return token(tok.SYM_USCORE);}
-	"`"					{return token(tok.SYM_GRAVE);}
-	"~"					{return token(tok.SYM_TILDE);}
-	"|"					{return token(tok.SYM_PIPE);}
+	"!"					{return symbol(sym.SYM_EXCLPNT);}
+	"#"					{return symbol(sym.SYM_HASH);}
+	"$"					{return symbol(sym.SYM_DOLLAR);}
+	"&"					{return symbol(sym.SYM_AMP);}
+	"("					{return symbol(sym.SYM_LPAREN);}
+	")"					{return symbol(sym.SYM_RPAREN);}
+	","					{return symbol(sym.SYM_COMMA);}
+	"."					{return symbol(sym.SYM_PERIOD);}
+	"/"					{return symbol(sym.SYM_FSLASH);}
+	":"					{return symbol(sym.SYM_COLON);}
+	";"					{return symbol(sym.SYM_SEMI);}
+	"?"					{return symbol(sym.SYM_QSTN);}
+	"@"					{return symbol(sym.SYM_AT);}
+	"["					{return symbol(sym.SYM_LSQR);}
+	"]"					{return symbol(sym.SYM_RSQR);}
+	"{"					{return symbol(sym.SYM_LCRL);}
+	"}"					{return symbol(sym.SYM_RCRL);}
+	\\					{return symbol(sym.SYM_BSLASH);}
+	"_"					{return symbol(sym.SYM_USCORE);}
+	"`"					{return symbol(sym.SYM_GRAVE);}
+	"~"					{return symbol(sym.SYM_TILDE);}
+	"|"					{return symbol(sym.SYM_PIPE);}
 
 //	Boolean Values
 	
-	"T"					{return token(tok.BOOLEAN,true);}
-	"F"					{return token(tok.BOOLEAN,false);}
+	"T"					{return symbol(sym.BOOLEAN,true);}
+	"F"					{return symbol(sym.BOOLEAN,false);}
 
 // Macros
 	
-	{Identifier}		{return token(tok.IDENT,yytext());}
-	{Integer}			{return token(tok.INT_LITERAL,new Integer(yytext()));}
-	{Float}				{return token(tok.FLOAT_LITERAL,new Float(yytext().substring(0,yylength()-1)));}
+	{Identifier}		{return symbol(sym.IDENT,yytext());}
+	{Integer}			{return symbol(sym.INT_LITERAL,new Integer(yytext()));}
+	{Float}				{return symbol(sym.FLOAT_LITERAL,new Float(yytext().substring(0,yylength()-1)));}
 	{Delimiter}			{/*	Don't do anything */}
 	{Comment}			{/* Don't do anything */}
 }
@@ -145,7 +145,7 @@ CharChar = [^\n\r\'\\]
 <STRING> {
 
 	\"					{yybegin(YYINITIAL);
-							return token(tok.STRING_LITERAL,
+							return symbol(sym.STRING_LITERAL,
 							string.toString()); }
 	{StringChar}+		{string.append(yytext());}
 	"\\b" 				{string.append('\b');}
@@ -165,15 +165,15 @@ CharChar = [^\n\r\'\\]
 
 <CHARLITERAL> {
 
-	{CharChar}\'		{yybegin(YYINITIAL);return token(CHAR_LITERAL,yytext().charAt(0));}
-	"\\b"\' 			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\b');}
-	"\\f"\' 			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\f');}
-	"\\t"\' 			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\t');}
-	"\\n"\'				{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\n');}
-	"\\r"\'				{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\r');}
-	"\\\""\'			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\"');}
-	"\\'"\'				{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\'');}
-	"\\\\"\'			{yybegin(YYINITIAL); return token(tok.CHAR_LITERAL, '\\');}
+	{CharChar}\'		{yybegin(YYINITIAL);return symbol(CHAR_LITERAL,yytext().charAt(0));}
+	"\\b"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\b');}
+	"\\f"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\f');}
+	"\\t"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\t');}
+	"\\n"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\n');}
+	"\\r"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\r');}
+	"\\\""\'			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\"');}
+	"\\'"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\'');}
+	"\\\\"\'			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\\');}
 
 //	Error Checking
 	\\.					{throw new RunTimeException("Illegal Escape Sequence \""+yytext()+"\"");}
