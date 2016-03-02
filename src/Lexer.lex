@@ -10,7 +10,41 @@ import java_cup.runtime.*;
 %debug
 
 %{
-	private 
+  private boolean debug_mode;
+  public boolean debug() { return debug_mode; }
+  public void debug(boolean mode){ debug_mode = mode; }
+
+  private void print_lexeme(int type, Object value){
+    if(!debug()){ return; }
+
+    System.out.print("<");
+    switch(type){
+      case sym.LET:
+        System.out.print("LET"); break;
+      case sym.EQUAL:
+        System.out.print(":="); break;
+      case sym.SEMICOL:
+        System.out.print(";"); break;
+      case sym.PLUS:
+        System.out.print("+"); break;
+      case sym.MINUS:
+        System.out.print("-"); break;
+      case sym.MULT:
+        System.out.print("*"); break;
+      case sym.DIV:
+        System.out.print("/"); break;
+      case sym.LPAREN:
+        System.out.print("("); break;
+      case sym.RPAREN:
+        System.out.print(")"); break;
+      case sym.INTEGER:
+        System.out.printf("INT %d", value); break;
+      case sym.IDENTIFIER:
+        System.out.printf("IDENT %s", value); break;
+    }
+    System.out.print(">  ");
+  }
+
 	StringBuffer input = new StringBuffer();
 	private Token token(int type) {
 		return new Token(type, yyline, yycolumn);
@@ -32,7 +66,6 @@ MultipleLineComment = "/#" [^#]~ "#/" | "/#" "#"+ "/"
 Letter  = [a-zA-Z]
 Digit = [0-9]
 
-Punctuation  = (" " | "!" | """ | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "]" | "{" | "}" | "\" | "^" | "_" | "`" | "~" | "|")
 
 ID_Character = {Letter} | {Digit} | "_"
 
@@ -48,7 +81,7 @@ CharChar = [^\n\r\'\\]
 %state STRING, CHARLITERAL
 
 %%
-<YYINTIAL> {
+<YYINITIAL> {
 
 //	State Change
 
@@ -124,7 +157,7 @@ CharChar = [^\n\r\'\\]
 	"]"					{return token(tok.SYM_RSQR)}
 	"{"					{return token(tok.SYM_LCRL)}
 	"}"					{return token(tok.SYM_RCRL)}
-	"\"					{return token(tok.SYM_BSLASH)}
+	\\					{return token(tok.SYM_BSLASH)}
 	"_"					{return token(tok.SYM_USCORE)}
 	"`"					{return token(tok.SYM_GRAVE)}
 	"~"					{return token(tok.SYM_TILDE)}
@@ -141,12 +174,12 @@ CharChar = [^\n\r\'\\]
 	{Integer}			{return token(tok.INT_LITERAL,new Integer(yytext()));}
 	{Float}				{return token(tok.FLOAT_LITERAL,new Float(yytext().substring(0,yylength()-1)));}
 	{Delimiter}			{/*	Don't do anything */}
-	{LineEnd}			{/*	Don't do anything */}
+	{Comment}			{/* Don't do anything */}
 }
 
 <STRING> {
 
-	\"					{yybegin(YYINTIIAL);
+	\"					{yybegin(YYINITIAL);
 							return token(tok.STRING_LITERAL,
 							string.toString()); }
 	{StringChar}+		{string.append(yytext());}
