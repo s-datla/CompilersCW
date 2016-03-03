@@ -1,45 +1,140 @@
 import java_cup.runtime.*;
-
-
+​
+import java.util.ArrayList;
+​
+scan with {: return lexer.next_token(); :};
+​
+parser code {:
+​
+  private boolean debug = true;
+  public boolean  debug()         {return debug;}
+  public void     debug(boolean b){debug = b;}
+​
+  static class Node {
+    public ArrayList<Node> children;
+    private static int globalCounter = 0;
+​
+    public int counter;
+    private Object value;
+​
+    public Node(Object value){
+      Node.globalCounter += 1;
+      this.counter = Node.globalCounter;
+      this.value = value;
+      this.children = new ArrayList<Node>();
+    }
+​
+    public void addChild(Node n){ children.add(n); }
+​
+    public String toString(){
+      String ret = "";
+      ret += String.format("%d [label=\"%s\"];\n",
+                            counter, value.toString());
+      for(Node n: children){
+        ret += String.format("%d -> %d;\n", this.counter, n.counter);
+        ret += n.toString();
+      }
+      return ret;
+    }
+  }
+​
+  private Lexer lexer;
+​
+  public Parser(Lexer lex) {
+    super(lex);
+    lexer = lex;
+  }
+​
+:};
+​
 /* Terminals (Returned By Lexer). -----------------------*/
 ​
 // Math Operators
 ​
-terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_FSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
+terminal SYM_STAR, SYM_PLUS, SYM_LARROW, SYM_EQUAL, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, PLUSEQ,MINEQ, SYM_MINUS;
 ​
 ​
 // Logical Operators
 ​
-terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, CONCAT;
+terminal SYM_OR, SYM_AND, EQEQ, NOTEQ;
 ​
 // Punctuation 
 ​
-terminal SYM_EXCLPNT, SYM_HASH, SYM_DOLLAR, SYM_AMP, SYM_LPAREN, SYM_RPAREN, SYM_COMMA, SYM_PERIOD, SYM_COLON, SYM_SEMI, SYM_QSTN, SYM_AT, SYM_LSQR, SYM_RSQR, SYM_LCRL, SYM_RCRL, SYM_BLASH, SYM_USCORE, SYM_GRAVE, SYM_TILDE, SYM_PIPE;
+terminal SYM_EXCLPNT,SYM_HASH,SYM_DOLLAR,SYM_AMP,SYM_LPAREN, SYM_RPAREN,SYM_COMMA,SYM_PERIOD,SYM_FSLASH,SYM_PERIOD;
 ​
-// TYPES 
+terminal SYM_COLON, SYM_SEMI,SYM_QSTN,SYM_LSQR,SYM_RSQR,SYM_LCRL,SYM_RCRL,SYM_BLASH,SYM_USCORE,SYM_GRAVE,SYM_TILDE,SYM_PIPE;
 ​
-terminal MAIN, DICT, SEQ, CHAR, BOOL, INT, RAT, FLOAT;
-
-
-// Flow Control
-terminal IFEL, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
-
-// Literals
-terminal IDENT, CHAR_LITERAL, INT_LITERAL, FLOAT_LITERAL, STRING_LITERAL;
-
-//OTHER
-
-terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD;
+// Other 
 ​
-
-
+terminal MAIN, DICT, SEQ, CHAR, BOOL; 
+​
+terminal INT, RAT, FLOAT, TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, IFEL, ELSE, ELIF, WHILE, FORALL, READ, PRINT;
+terminal THEN, FI, DO, OD, RETURN;
+​
 /* Non terminals --------------------------------------*/
 ​
+nonterminal statements, statement, top_level; 
+​
+nonterminal let_bind, full_exp, simple_exp, operator;
 ​
 /* Precedences ----------------------*/
 ​
-precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR;
-precedence left SYM_STAR, SYM_FSLASH;
+precedence left SYM_PLUS, SYM_MINUS,  SYM_FSLASH, SYM_STAR, SYM_AND, SYM_OR;
 ​
 ​
 /* The grammar ----------------------*/
+​
+top_level ::= statements:ss {:
+                if(debug()) System.out.println((Node)ss);
+              :}
+            ;
+​
+statements ::= statements:ss statement:s {:
+                  Node n = (Node)ss;
+                  n.addChild((Node)s);
+                  RESULT = n;
+               :}
+             | /* empty */ {:
+                  RESULT = new Node("Statements");
+               :}
+             ;
+​
+statement ::= let_bind:s {:
+                RESULT = (Node)s;
+              :}
+            | full_exp:s {:
+                RESULT = (Node)s;
+              :}
+            ;
+​
+full_exp ::= simple_exp:e SYM_SEMI {: RESULT = (Node)e; :};
+​
+simple_exp ::= INT:i    {: RESULT = new Node(i); :}
+             | IDENTIFIER:i {: RESULT = new Node(i); :}
+             | simple_exp:e1 operator:o simple_exp:e2 {:
+                  Node n = (Node)o;
+                  n.addChild((Node)e1);
+                  n.addChild((Node)e2);
+                  RESULT = n;
+               :}
+             | LPAREN simple_exp:e RPAREN {:
+                 Node n = new Node("parens");
+                 n.addChild(new Node("("));
+                 n.addChild((Node)e);
+                 n.addChild(new Node(")"));
+                 RESULT = (Node)e;
+               :}
+             ;
+​
+operator ::= PLUS  {: RESULT = new Node("+"); :}
+           | MINUS {: RESULT = new Node("-"); :}
+           | MULT  {: RESULT = new Node("*"); :}
+           | DIV   {: RESULT = new Node("/"); :}
+           ;
+​
+let_bind ::= LET IDENTIFIER:i EQUAL full_exp:e {:
+               Node n = new Node("LET");
+               n.addChild(new Node(i));
+               n.addChild((Node)e);
+               RESULT = n;
+             :};

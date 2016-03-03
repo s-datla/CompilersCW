@@ -85,16 +85,16 @@ CharChar = [^\n\r\'\\]
 
 //	Mathematical Operators
 
-	"+"					{return symbol(sym.SYM_PLUS);}
-	"-"					{return symbol(sym.SYM_MINUS);}
 	"*"					{return symbol(sym.SYM_STAR);}
+	"+"					{return symbol(sym.SYM_PLUS);}
 	"<"					{return symbol(sym.SYM_LARROW);}
 	"="					{return symbol(sym.SYM_EQUAL);}
 	">"					{return symbol(sym.SYM_RARROW);}
 	"^"					{return symbol(sym.SYM_CARET);}
 	"%"					{return symbol(sym.SYM_PRCNT);}
 	"<="				{return symbol(sym.LEQ);}
-	"=>"				{return symbol(sym.GEQ);}
+	"=>"				{return symbol(sym.GEQ);}	
+	"-"					{return symbol(sym.SYM_MINUS);}
 
 // 	Logical Operators
 
@@ -102,7 +102,6 @@ CharChar = [^\n\r\'\\]
 	"&&"				{return symbol(sym.SYM_AND);}
 	"=="				{return symbol(sym.EQEQ);}
 	"!="				{return symbol(sym.NOTEQ);}
-	"::"				{return symbol(sym.CONCAT);}
 
 //	Punctuation
 
@@ -131,8 +130,8 @@ CharChar = [^\n\r\'\\]
 
 //	Boolean Values
 	
-//	"T"					{return symbol(sym.BOOLEAN,true);}
-//	"F"					{return symbol(sym.BOOLEAN,false);}
+	"T"					{return symbol(sym.BOOLEAN,true);}
+	"F"					{return symbol(sym.BOOLEAN,false);}
 
 // Macros
 	
