@@ -128,27 +128,21 @@ public class Parser extends java_cup.runtime.lr_parser {
     }
 
 
-???
   private boolean debug = true;
   public boolean  debug()         {return debug;}
   public void     debug(boolean b){debug = b;}
-???
   static class Node {
     public ArrayList<Node> children;
     private static int globalCounter = 0;
-???
     public int counter;
     private Object value;
-???
     public Node(Object value){
       Node.globalCounter += 1;
       this.counter = Node.globalCounter;
       this.value = value;
       this.children = new ArrayList<Node>();
     }
-???
     public void addChild(Node n){ children.add(n); }
-???
     public String toString(){
       String ret = "";
       ret += String.format("%d [label=\"%s\"];\n",
@@ -160,14 +154,11 @@ public class Parser extends java_cup.runtime.lr_parser {
       return ret;
     }
   }
-???
   private Lexer lexer;
-???
   public Parser(Lexer lex) {
     super(lex);
     lexer = lex;
   }
-???
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
@@ -408,7 +399,7 @@ class CUP$Parser$actions {
                n.addChild(new Node(i));
                n.addChild((Node)e);
                RESULT = n;
-             
+               
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("let_bind",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

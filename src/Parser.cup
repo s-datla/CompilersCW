@@ -1,6 +1,6 @@
 import java_cup.runtime.*;
-
 import java.util.ArrayList;
+
 scan with {: return lexer.next_token(); :};
 parser code {:
   private boolean debug = true;
@@ -39,21 +39,32 @@ parser code {:
   + current_token.right, null );
   } 
 :};
+
 /* Terminals (Returned By Lexer). -----------------------*/
+
 // Math Operators
+
 terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_FSLASH, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
+
 // Logical Operators
+
 terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, CONCAT;
+
 // Punctuation 
+
 terminal SYM_EXCLPNT, SYM_HASH, SYM_DOLLAR, SYM_AMP, SYM_LPAREN, SYM_RPAREN, SYM_COMMA, SYM_PERIOD, SYM_COLON, SYM_SEMI, SYM_QSTN, SYM_AT, SYM_LSQR, SYM_RSQR, SYM_LCRL, SYM_RCRL, SYM_BLASH, SYM_USCORE, SYM_GRAVE, SYM_TILDE, SYM_PIPE;
+
 // TYPES 
+
 terminal MAIN, DICT, SEQ, CHAR, BOOL, INT, RAT, FLOAT;
 
 
 // Flow Control
+
 terminal IFEL, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
 
 // Literals
+
 terminal IDENT, CHAR_LITERAL, INT_LITERAL, FLOAT_LITERAL, STRING_LITERAL;
 
 //OTHER
@@ -65,13 +76,18 @@ terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD, LET;
 nonterminal statements, statement, top_level; 
 nonterminal let_bind, full_exp, simple_exp, operator;
 /* Precedences ----------------------*/
+
 precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR;
+
 precedence left SYM_STAR, SYM_FSLASH;
+
 /* The grammar ----------------------*/
+
 top_level ::= statements:ss {:
                 if(debug()) System.out.println((Node)ss);
               :}
             ;
+
 statements ::= statements:ss statement:s {:
                   Node n = (Node)ss;
                   n.addChild((Node)s);
@@ -81,6 +97,7 @@ statements ::= statements:ss statement:s {:
                   RESULT = new Node("Statements");
                :}
              ;
+
 statement ::= let_bind:s {:
                 RESULT = (Node)s;
               :}
@@ -88,7 +105,11 @@ statement ::= let_bind:s {:
                 RESULT = (Node)s;
               :}
             ;
+
+type ::= IDENT:i {: RESULT = new Node(i) :}
+        |  
 full_exp ::= simple_exp:e SYM_SEMI {: RESULT = (Node)e; :};
+
 simple_exp ::= INT:i    {: RESULT = new Node(i); :}
              | IDENT:i {: RESULT = new Node(i); :}
              | simple_exp:e1 operator:o simple_exp:e2 {:
@@ -110,9 +131,11 @@ operator ::= SYM_PLUS  {: RESULT = new Node("+"); :}
            | SYM_STAR  {: RESULT = new Node("*"); :}
            | SYM_FSLASH   {: RESULT = new Node("/"); :}
            ;
-let_bind ::= LET IDENT:i SYM_EQUAL full_exp:e {:
+
+let_bind ::=  IDENT:i SYM_EQUAL full_exp:e {:
                Node n = new Node("LET");
                n.addChild(new Node(i));
                n.addChild((Node)e);
                RESULT = n;
-               :};
+               :}
+            | ;
