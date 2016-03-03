@@ -41,8 +41,6 @@ ID_Character = {Letter} | {Digit} | "_"
 Identifier  = {Letter}{ID_Character}* 
 
 Integer = 0 | [1-9]{Digit}*
-Float = {Digit}+ "." {Digit}* | "."{Digit}+
-
 
 StringChar  = [^\n\r\"\\]
 CharChar = [^\n\r\'\\]
@@ -144,7 +142,6 @@ CharChar = [^\n\r\'\\]
 	
 	{Identifier}		{return symbol(sym.IDENT,yytext());}
 	{Integer}			{return symbol(sym.INT_LITERAL,new Integer(yytext()));}
-	{Float}				{return symbol(sym.FLOAT_LITERAL,new Float(yytext().substring(0,yylength()-1)));}
 	{Delimiter}			{/*	Don't do anything */}
 	{Comment}			{/* Don't do anything */}
 }

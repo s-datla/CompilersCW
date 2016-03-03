@@ -65,7 +65,7 @@ terminal IFEL, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
 
 // Literals
 
-terminal IDENT, CHAR_LITERAL, INT_LITERAL, FLOAT_LITERAL, STRING_LITERAL, BOOL_LITERAL;
+terminal IDENT, CHAR_LITERAL, INT_LITERAL, STRING_LITERAL, BOOL_LITERAL;
 
 //OTHER
 
@@ -80,7 +80,7 @@ nonterminal type_name, let_bind, full_exp, simple_exp, operator, literal;
 
 /* Precedences ----------------------*/
 
-precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR;
+precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR, SYM_PRCNT;
 precedence left SYM_STAR, SYM_FSLASH;
 precedence right SYM_CARET;
 precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CONCAT; 
@@ -109,8 +109,7 @@ statement ::=  simple_exp:s SYM_SEMI {:
               :}
             ;
 
-type_name ::= IDENT:i {: RESULT = new Node(i); :}
-        | CHAR:i {: RESULT = new Node(i); :}
+type_name ::= CHAR:i {: RESULT = new Node(i); :}
         | DICT:i {: RESULT = new Node(i); :}
         | SEQ:i {: RESULT = new Node(i); :}
         | BOOL:i {: RESULT = new Node(i); :}
@@ -123,7 +122,7 @@ type_name ::= IDENT:i {: RESULT = new Node(i); :}
 simple_exp ::= type_name:i {::}
           | IDENT:i {::}
           | simple_exp:e1 operator:o simple_exp:e2 {::}
-          | simple_exp:e2 SYM_EQUAL simple_exp:e2 {::}
+          | simple_exp:e1 SYM_EQUAL simple_exp:e2 {::}
           | SYM_LPAREN simple_exp:e SYM_RPAREN
           | literal
           ;
@@ -131,9 +130,7 @@ simple_exp ::= type_name:i {::}
 literal ::= CHAR_LITERAL
            | STRING_LITERAL 
            | INT_LITERAL
-           | FLOAT_LITERAL 
            | BOOL_LITERAL 
-           | IDENT
            ;
 
 operator ::= SYM_PLUS  {: RESULT = new Node("+"); :}
