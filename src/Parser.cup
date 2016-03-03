@@ -125,10 +125,18 @@ prim_type ::= BOOL:i {: RESULT = new Node(i); :}
 
 type_name ::= aggr_type | prim_type ; 
 
+seq_type ::= type_name 
+            | top
+            | IDENT 
+            | seq_decl
+            | dict
+            ;
+
 dict_type ::= type_name 
             | top
             | IDENT
             | dict_decl
+            | seq
             ;
 
 signed_int ::= SYM_MINUS:m INT_LITERAL;
@@ -202,10 +210,19 @@ dict_comma_seperation ::= return_exp SYM_COLON return_exp
 element_accsr ::= return_exp SYM_LSQR return_exp SYM_RSQR
               ;
 
-seq_decl ::= SEQ SYM_LARROW type_name SYM_RARROW;
+seq_decl ::= SEQ SYM_LARROW seq_type SYM_RARROW;
 
-seq_list ::= return_exp SYM_COMMA seq_list
-        | 
-
-seq_
+seq_comma_seperated ::= return_exp SYM_COMMA seq_list
+                    | return_exp 
+                    | /*nothing*/
+                    ;
+​
+seq_literal ::= SYM_LSQR seq_comma_seperated SYM_RSQR 
+            | SYM_LSQR SYM_RSQR 
+            ; 
+​
+seq_splicing ::= return_exp SYM_LSQR return_exp SYM_COLON return_exp SYM_RSQR 
+            | return_exp SYM_LSQR SYM_COLON return_exp SYM_RSQR 
+            | return_exp SYM_LSQR return_exp SYM_COLON SYM_RSQR 
+            ;
 
