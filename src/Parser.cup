@@ -109,15 +109,16 @@ statement ::= let_bind:s {:
               :}
             ;
 
-type_name ::= IDENT:i {: RESULT = new Node(i) :}
-        | CHAR:i {: RESULT = new Node(i) :}
-        | DICT:i {: RESULT = new Node(i) :}
-        | SEQ:i {: RESULT = new Node(i) :}
-        | BOOL:i {: RESULT = new Node(i) :}
-        | INT:i {: RESULT = new Node(i) :}
-        | RAT:i {: RESULT = new Node(i) :}
-        | FLOAT:i {: RESULT = new Node(i) :}
-        | TOP:i {: RESULT = new Node(i) :}
+type_name ::= IDENT:i {: RESULT = new Node(i); :}
+        | CHAR:i {: RESULT = new Node(i); :}
+        | DICT:i {: RESULT = new Node(i); :}
+        | SEQ:i {: RESULT = new Node(i); :}
+        | BOOL:i {: RESULT = new Node(i); :}
+        | INT:i {: RESULT = new Node(i); :}
+        | RAT:i {: RESULT = new Node(i); :}
+        | FLOAT:i {: RESULT = new Node(i); :}
+        | TOP:i {: RESULT = new Node(i); :}
+        ;
 
 full_exp ::= simple_exp:e SYM_SEMI {: RESULT = (Node)e; :};
 
@@ -149,4 +150,4 @@ let_bind ::=  IDENT:i SYM_EQUAL full_exp:e {:
                n.addChild((Node)e);
                RESULT = n;
                :}
-            | ;
+               ;

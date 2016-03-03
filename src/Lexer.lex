@@ -138,7 +138,7 @@ CharChar = [^\n\r\'\\]
 //	Boolean Values
 	
 //	"T"					{return symbol(sym.BOOL_LITERAL,true);}
-//	"F"					{return symbol(sym.BOOL_LITERAL,false);}
+//	"F"					{return symbol(sym.BOOL_LITERAL,false);}x
 
 // Macros
 	
