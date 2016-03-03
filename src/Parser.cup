@@ -44,7 +44,7 @@ parser code {:
 
 // Math Operators
 
-terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_FSLASH, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
+terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
 
 // Logical Operators
 
@@ -81,7 +81,7 @@ nonterminal type_name, let_bind, full_exp, simple_exp, operator, literal;
 /* Precedences ----------------------*/
 
 precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR, SYM_PRCNT;
-precedence left SYM_STAR, SYM_FSLASH;
+precedence left SYM_STAR, SYM_DIV;
 precedence right SYM_CARET;
 precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CONCAT; 
 
@@ -105,7 +105,7 @@ statements ::= statements:ss statement:s {:
              ;
 
 statement ::=  simple_exp:s SYM_SEMI {:
-                RESULT = (Node)s;
+                RESULT = Node(s);
               :}
             ;
 
@@ -122,29 +122,48 @@ type_name ::= CHAR:i {: RESULT = new Node(i); :}
 simple_exp ::= type_name:i {::}
           | IDENT:i {::}
           | simple_exp:e1 operator:o simple_exp:e2 {::}
-          | simple_exp:e1 SYM_EQUAL simple_exp:e2 {::}
           | SYM_LPAREN simple_exp:e SYM_RPAREN
           | literal
           ;
 
 literal ::= CHAR_LITERAL
            | STRING_LITERAL 
-           | INT_LITERAL
-           | BOOL_LITERAL 
+           | unsigned_int
+           | signed_int
+           | float
+           | rational
+           | BOOL_LITERAL
+           | dictionary
+           | sequence 
            ;
 
-operator ::= SYM_PLUS  {: RESULT = new Node("+"); :}
-           | SYM_MINUS {: RESULT = new Node("-"); :}
-           | SYM_STAR  {: RESULT = new Node("*"); :}
-           | SYM_FSLASH   {: RESULT = new Node("/"); :}
-           | SYM_AND 
-           | SYM_OR
-           | EQEQ 
-           | NOTEQ
-           | SYM_LARROW 
-           | LEQ 
-           | SYM_RARROW 
-           | GEQ 
-           | SYM_CARET
-           | SYM_PRCNT
+operator ::= SYM_PLUS       {: RESULT = new Node("+"); :}
+           | SYM_MINUS      {: RESULT = new Node("-"); :}
+           | SYM_STAR       {: RESULT = new Node("*"); :}
+           | SYM_DIV        {: RESULT = new Node("/"); :}
+           | SYM_LARROW     {: RESULT = new Node("<"); :}
+           | SYM_EQUAL      {: RESULT = new Node("="); :}
+           | SYM_RARROW     {: RESULT = new Node(">"); :}
+           | SYM_AND        {: RESULT = new Node("&&"); :}
+           | SYM_OR         {: RESULT = new Node("||"); :}
+           | EQEQ           {: RESULT = new Node("=="); :}
+           | NOTEQ          {: RESULT = new Node("!="); :}
+           | LEQ            {: RESULT = new Node("<="); :}
+           | GEQ            {: RESULT = new Node(">="); :}
+           | SYM_CARET      {: RESULT = new Node("^"); :}
+           | SYM_PRCNT      {: RESULT = new Node("%"); :}
+           | SYM_CONCAT     {: RESULT = new Node("::"); :}
            ;
+
+signed_int ::= SYM_MINUS:m INT_LITERAL;
+
+unsigned_int ::= INT_LITERAL;
+
+float ::= signed_int:i1 SYM_PERIOD:p unsigned_int:i2
+            | unsigned_int:i1 SYM_PERIOD:p unsigned_int:i2
+            ;
+
+rational ::= signed_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
+            | unsigned_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
+            ;
+

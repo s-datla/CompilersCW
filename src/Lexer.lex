@@ -92,13 +92,14 @@ CharChar = [^\n\r\'\\]
 	"+"					{return symbol(sym.SYM_PLUS);}
 	"-"					{return symbol(sym.SYM_MINUS);}
 	"*"					{return symbol(sym.SYM_STAR);}
+	"/"					{return symbol(sym.SYM_DIV);}
 	"<"					{return symbol(sym.SYM_LARROW);}
 	"="					{return symbol(sym.SYM_EQUAL);}
 	">"					{return symbol(sym.SYM_RARROW);}
 	"^"					{return symbol(sym.SYM_CARET);}
 	"%"					{return symbol(sym.SYM_PRCNT);}
 	"<="				{return symbol(sym.LEQ);}
-	"=>"				{return symbol(sym.GEQ);}
+	">="				{return symbol(sym.GEQ);}
 
 // 	Logical Operators
 
@@ -107,10 +108,10 @@ CharChar = [^\n\r\'\\]
 	"=="				{return symbol(sym.EQEQ);}
 	"!="				{return symbol(sym.NOTEQ);}
 	"::"				{return symbol(sym.CONCAT);}
+	"!"					{return symbol(sym.SYM_EXCLPNT);}
 
 //	Punctuation
 
-	"!"					{return symbol(sym.SYM_EXCLPNT);}
 	"#"					{return symbol(sym.SYM_HASH);}
 	"$"					{return symbol(sym.SYM_DOLLAR);}
 	"&"					{return symbol(sym.SYM_AMP);}
@@ -118,7 +119,6 @@ CharChar = [^\n\r\'\\]
 	")"					{return symbol(sym.SYM_RPAREN);}
 	","					{return symbol(sym.SYM_COMMA);}
 	"."					{return symbol(sym.SYM_PERIOD);}
-	"/"					{return symbol(sym.SYM_FSLASH);}
 	":"					{return symbol(sym.SYM_COLON);}
 	";"					{return symbol(sym.SYM_SEMI);}
 	"?"					{return symbol(sym.SYM_QSTN);}
