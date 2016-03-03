@@ -167,3 +167,11 @@ rational ::= signed_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i
             | unsigned_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
             ;
 
+// Work on Dict 
+dict_def ::= DICT SYM_LARROW type_name SYM_COMMA type_name SYM_RARROW;
+dict_list ::= SYM_LCRL dict_comma_seperation SYM_RCRL 
+dict_comma_seperation ::= literal SYM_COLON literal
+          | literal SYM_COLON literal SYM_COMMA dict_comma_seperation
+element_accsr ::= IDENT SYM_LSQR simple_exp SYM_RSQR 
+seq_def ::= SEQ SYM_LARROW type_name SYM_RARROW;
+
