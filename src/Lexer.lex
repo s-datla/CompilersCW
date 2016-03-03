@@ -14,8 +14,8 @@ import java_cup.runtime.*;
 	private Symbol symbol(int type) {
 		return new Symbol(type, yyline, yycolumn);
 	}
-	private Symbol symbol(int type, Object val) {
-		return new Symbol(type, yyline, yycolumn, val);
+	private Symbol symbol(int type, Object value) {
+		return new Symbol(type, yyline, yycolumn, value);
 	}
 %}
 
