@@ -11,6 +11,7 @@ class SC {
 		try {
 			lexer = new Lexer(new FileReader(args[0]));
 			try {
+				System.out.println("heu");
 				Parser parser = new Parser(lexer);
 				Symbol result = parser.parse();
 				if(!parser.syntaxErrors){

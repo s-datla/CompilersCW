@@ -75,7 +75,7 @@ terminal IDENT, CHAR_LITERAL, INT_LITERAL, FLOAT_LITERAL, STRING_LITERAL;
 
 //OTHER
 
-terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD;
+terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD, LET;
 ​
 
 
@@ -119,14 +119,14 @@ statement ::= let_bind:s {:
 full_exp ::= simple_exp:e SYM_SEMI {: RESULT = (Node)e; :};
 ​
 simple_exp ::= INT:i    {: RESULT = new Node(i); :}
-             | IDENTIFIER:i {: RESULT = new Node(i); :}
+             | IDENT:i {: RESULT = new Node(i); :}
              | simple_exp:e1 operator:o simple_exp:e2 {:
                   Node n = (Node)o;
                   n.addChild((Node)e1);
                   n.addChild((Node)e2);
                   RESULT = n;
                :}
-             | LPAREN simple_exp:e RPAREN {:
+             | SYM_LPAREN simple_exp:e SYM_RPAREN {:
                  Node n = new Node("parens");
                  n.addChild(new Node("("));
                  n.addChild((Node)e);
@@ -135,13 +135,13 @@ simple_exp ::= INT:i    {: RESULT = new Node(i); :}
                :}
              ;
 ​
-operator ::= PLUS  {: RESULT = new Node("+"); :}
-           | MINUS {: RESULT = new Node("-"); :}
-           | MULT  {: RESULT = new Node("*"); :}
-           | DIV   {: RESULT = new Node("/"); :}
+operator ::= SYM_PLUS  {: RESULT = new Node("+"); :}
+           | SYM_MINUS {: RESULT = new Node("-"); :}
+           | SYM_STAR  {: RESULT = new Node("*"); :}
+           | SYM_FSLASH   {: RESULT = new Node("/"); :}
            ;
 ​
-let_bind ::= LET IDENTIFIER:i EQUAL full_exp:e {:
+let_bind ::= LET IDENT:i SYM_EQUAL full_exp:e {:
                Node n = new Node("LET");
                n.addChild(new Node(i));
                n.addChild((Node)e);

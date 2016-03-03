@@ -82,6 +82,8 @@ CharChar = [^\n\r\'\\]
 	"do"				{return symbol(sym.DO);}
 	"od"				{return symbol(sym.OD);}
 	"return"			{return symbol(sym.RETURN);}
+	"let"			{return symbol(sym.LET);}
+
 
 //	Mathematical Operators
 
