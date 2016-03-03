@@ -9,8 +9,12 @@ import java_cup.runtime.*;
 %column
 %debug
 
+%eofval{
+	return symbol(sym.EOF);
+%eofval}
+
 %{
-	StringBuffer input = new StringBuffer();
+	StringBuffer string = new StringBuffer();
 	private Symbol symbol(int type) {
 		return new Symbol(type, yyline, yycolumn);
 	}
