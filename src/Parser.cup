@@ -73,8 +73,10 @@ terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD, LET;
 
 
 /* Non terminals --------------------------------------*/
+
 nonterminal statements, statement, top_level; 
-nonterminal let_bind, full_exp, simple_exp, operator;
+
+nonterminal types, let_bind, full_exp, simple_exp, operator;
 /* Precedences ----------------------*/
 
 precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR;
@@ -107,7 +109,15 @@ statement ::= let_bind:s {:
             ;
 
 type ::= IDENT:i {: RESULT = new Node(i) :}
-        |  
+        | CHAR IDENT:i {: RESULT = new Node(i) :}
+        | DICT IDENT:i {: RESULT = new Node(i) :}
+        | SEQ IDENT:i {: RESULT = new Node(i) :}
+        | BOOL IDENT:i {: RESULT = new Node(i) :}
+        | INT IDENT:i {: RESULT = new Node(i) :}
+        | RAT IDENT:i {: RESULT = new Node(i) :}
+        | FLOAT IDENT:i {: RESULT = new Node(i) :}
+        | TOP IDENT:i {: RESULT = new Node(i) :}
+
 full_exp ::= simple_exp:e SYM_SEMI {: RESULT = (Node)e; :};
 
 simple_exp ::= INT:i    {: RESULT = new Node(i); :}
