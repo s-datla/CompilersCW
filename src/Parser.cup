@@ -88,12 +88,7 @@ precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CO
 
 
 /* The grammar ----------------------*/
-
-
 start with top_level; 
-
-
-
 
 top_level ::= statements:ss {:
                 if(debug()) System.out.println((Node)ss);
@@ -117,18 +112,16 @@ statement ::=  simple_exp:s SYM_SEMI {:
 
 
 // Type defs 
-
 aggr_type ::= dict_decl:i {: RESULT = new Node(i); :}
-        | SEQ:i {: RESULT = new Node(i); :}
-        ;
+          | SEQ:i {: RESULT = new Node(i); :}
+          ;
 
-prim_type ::= CHAR:i {: RESULT = new Node(i); :}
-        | BOOL:i {: RESULT = new Node(i); :}
-        | INT:i {: RESULT = new Node(i); :}
-        | RAT:i {: RESULT = new Node(i); :}
-        | FLOAT:i {: RESULT = new Node(i); :}
-        ;
-
+prim_type ::= BOOL:i {: RESULT = new Node(i); :}
+          | CHAR:i {: RESULT = new Node(i); :}
+          | FLOAT:i {: RESULT = new Node(i); :}
+          | INT:i {: RESULT = new Node(i); :}
+          | RAT:i {: RESULT = new Node(i); :}
+          ;
 
 type_name ::= aggr_type | prim_type ; 
 
@@ -138,34 +131,43 @@ dict_type ::= type_name
             | dict_decl
             ;
 
+signed_int ::= SYM_MINUS:m INT_LITERAL;
+
+unsigned_int ::= INT_LITERAL;
+
+FLOAT_LITERAL ::= signed_int:i1 SYM_PERIOD:p unsigned_int:i2
+              | unsigned_int:i1 SYM_PERIOD:p unsigned_int:i2
+              ;
+
+RAT_LITERAL ::= signed_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
+            | unsigned_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
+            ;
+
 
 // Expressions
-
 decl ::= type_name IDENT | IDENT IDENT;  
 
-assignment ::= decl SYM_EQUAL return_exp 
-              | IDENT SYM_EQUAL return_exp
-              ;
+assignment  ::= decl SYM_EQUAL return_exp 
+            | IDENT SYM_EQUAL return_exp
+            ;
 
 simple_exp ::= return_exp | assignment;
 
-return_exp ::= IDENT
-          | return_exp operator return_exp
-          | literal 
-          ;
+return_exp  ::= IDENT
+            | return_exp operator return_exp
+            | literal 
+            ;
 
-
-
-literal ::= CHAR_LITERAL
-           | STRING_LITERAL 
-           | unsigned_int
-           | signed_int
-           | float
-           | rational
-           | BOOL_LITERAL
-           | seq_literal
-           | dict_literal
-           ;
+literal ::= BOOL_LITERAL
+        | CHAR_LITERAL
+        | dict_literal
+        | FLOAT_LITERAL
+        | RAT_LITERAL          
+        | seq_literal
+        | signed_int
+        | STRING_LITERAL
+        | unsigned_int
+        ;
 
 operations ::= SYM_PLUS       {: RESULT = new Node("+"); :}
            | SYM_MINUS      {: RESULT = new Node("-"); :}
@@ -184,30 +186,18 @@ operations ::= SYM_PLUS       {: RESULT = new Node("+"); :}
 
 aggr_op ::= SYM_CONCAT     {: RESULT = new Node("::"); :};
 
-signed_int ::= SYM_MINUS:m INT_LITERAL;
 
-unsigned_int ::= INT_LITERAL;
-
-float ::= signed_int:i1 SYM_PERIOD:p unsigned_int:i2
-            | unsigned_int:i1 SYM_PERIOD:p unsigned_int:i2
-            ;
-
-rational ::= signed_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
-            | unsigned_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
-            ;
-
-// Work on Dict 
-
+// Dictionary Work
 dict_decl ::= DICT SYM_LARROW dict_type SYM_COMMA dict_type SYM_RARROW
           ; 
 
-dict_comma_seperation ::= return_exp SYM_COLON return_exp
-          | dict_comma_seperation SYM_COMMA dict_comma_seperation
-          ;
-
-dict_literal ::= SYM_LCRL SYM_RCRL
+dict_literal  ::= SYM_LCRL SYM_RCRL
               | SYM_LCRL dict_comma_seperation SYM_RCRL
               ;
+
+dict_comma_seperation ::= return_exp SYM_COLON return_exp
+                      | dict_comma_seperation SYM_COMMA dict_comma_seperation
+                      ;
 
 element_accsr ::= return_exp SYM_LSQR return_exp SYM_RSQR
               ;
