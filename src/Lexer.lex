@@ -165,14 +165,14 @@ CharChar = [^\n\r\'\\]
 	"\\\\"				{string.append('\\');}
 
 //	Error Checking
-	\\.					{throw new RunTimeException("Illegal Escape Sequence \""+yytext()+"\"");}
-	{LineEnd}			{throw new RunTimeException("Illegal Termination of String");}
+	\\.					{throw new Error("Illegal Termination of String <" + yytext() + ">");}
+	{LineEnd}			{throw new Error("Illegal Termination of String <" + yytext() + ">");}
 	
 }
 
 <CHARLITERAL> {
 
-	{CharChar}\'		{yybegin(YYINITIAL);return symbol(CHAR_LITERAL,yytext().charAt(0));}
+	{CharChar}\'		{yybegin(YYINITIAL);return symbol(sym.CHAR_LITERAL,yytext().charAt(0));}
 	"\\b"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\b');}
 	"\\f"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\f');}
 	"\\t"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\t');}
@@ -183,8 +183,8 @@ CharChar = [^\n\r\'\\]
 	"\\\\"\'			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\\');}
 
 //	Error Checking
-	\\.					{throw new RunTimeException("Illegal Escape Sequence \""+yytext()+"\"");}
-	{LineEnd}			{throw new RunTimeException("Illegal Termination of String");}
+	\\.					{throw new Error("Illegal Termination of Character <" + yytext() + ">");}
+	{LineEnd}			{throw new Error("Illegal Termination of Character <" + yytext() + ">");}
 
 
 }

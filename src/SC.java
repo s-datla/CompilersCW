@@ -11,14 +11,9 @@ class SC {
 		try {
 			lexer = new Lexer(new FileReader(args[0]));
 			try {
-				System.out.println("heu");
 				Parser parser = new Parser(lexer);
 				Symbol result = parser.parse();
-				if(!parser.syntaxErrors){
-					System.out.println("parsing successful");
-				}
-				
-				
+								
 			} catch (Exception e) {
 				// Commented out because this output is uniformative.  ETB
 				e.printStackTrace();

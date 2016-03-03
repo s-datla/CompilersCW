@@ -34,10 +34,14 @@ parser code {:
     super(lex);
     lexer = lex;
   }
+  public void syntax_error(Symbol current_token) { report_error(
+         "Syntax error at line " + (current_token.left+1) + ", column "
+  + current_token.right, null );
+  } 
 :};
 /* Terminals (Returned By Lexer). -----------------------*/
 // Math Operators
-terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_FSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
+terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_FSLASH, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
 // Logical Operators
 terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, CONCAT;
 // Punctuation 
