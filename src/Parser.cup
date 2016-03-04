@@ -174,20 +174,20 @@ seq_literal ::= SYM_LSQR seq_comma_seperated SYM_RSQR
             | SYM_LSQR SYM_RSQR 
             ; 
 ​
-seq_splicing ::= IDENT SYM_LSQR return_exp SYM_COLON return_exp SYM_RSQR 
-            | IDENT SYM_LSQR SYM_COLON return_exp SYM_RSQR 
-            | IDENT SYM_LSQR return_exp SYM_COLON SYM_RSQR 
-            ;
+seq_splicing  ::= IDENT SYM_LSQR return_exp SYM_COLON return_exp SYM_RSQR 
+              | IDENT SYM_LSQR SYM_COLON return_exp SYM_RSQR 
+              | IDENT SYM_LSQR return_exp SYM_COLON SYM_RSQR 
+              ;
 
 len_expr ::= LEN SYM_LPAREN IDENT SYM_RPAREN
-          | LEN SYM_LPAREN seq_literal SYM_RPAREN
-          | LEN SYM_LPAREN dict_literal SYM_RPAREN 
-          ;
+         | LEN SYM_LPAREN seq_literal SYM_RPAREN
+         | LEN SYM_LPAREN dict_literal SYM_RPAREN 
+         ;
 
 in_expr ::= literal IN IDENT
-          | literal IN seq_decl 
-          | literal IN dict_decl
-          ;
+        | literal IN seq_decl 
+        | literal IN dict_decl
+        ;
 
 // Typedef Declarations -----------------------------------------
 
@@ -220,7 +220,7 @@ accessor  ::= IDENT
 
 function_call ::= IDENT SYM_LPAREN declaration_list SYM_RPAREN
 
-ifelse ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
+ifelse  ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
         | IF SYM_LPAREN return_exp SYM_RPAREN THEN block FI
         | IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELIF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
         ;
@@ -228,7 +228,38 @@ ifelse ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
 whiledo ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO block OD
         ;
 
-forall ::= FORALL SYM_LPAREN return_exp IN aggr_literal SYM_RPAREN DO block OD; 
+forall ::= FORALL SYM_LPAREN return_exp IN aggr_literal SYM_RPAREN DO block OD;
+
+block ::= stat_list 
+      | decl_list
+      | decl_list stat_list
+      ;
+
+stat  ::= function_call
+      | io_calls
+      | return
+      | assignment
+      ;
+
+stat_part ::= stat SYM_SEMI
+          | ifelse
+          | whiledo
+          | forall
+          ;
+
+stat_list ::= stat_list stat_part
+          | stat_list
+          ;
+
+declarations  ::= alias_decl
+              | tdef_decl
+              | fdef_decl
+              | assignment
+              ;
+
+decl_list ::= declarations
+          | decl_list declarations
+          ;
 
 return  ::= RETURN return_exp
         | RETURN
@@ -236,7 +267,7 @@ return  ::= RETURN return_exp
 
 // Expressions --------------------------------------------------
 
-decl ::= type_name IDENT | IDENT IDENT;  
+decl ::= type_name IDENT | IDENT IDENT;
 
 simple_exp ::= return_exp | assignment;
 
