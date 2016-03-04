@@ -50,7 +50,7 @@ CharChar = [^\n\r\'\\]
 
 //	State Change
 
-	\"					{string.setLength(0); yybegin(STRING);}
+	\"					{string.setLength(0); yybegin(STRING); }
 	\'					{yybegin(CHARLITERAL);}
 
 //	Predefined Function Names
@@ -144,19 +144,16 @@ CharChar = [^\n\r\'\\]
 }
 
 <STRING> {
-
-	\"					{yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-	{StringChar}+		{string.append(yytext());}
-	"\\b" 				{string.append('\b');}
-	"\\f" 				{string.append('\f');}
-	"\\t" 				{string.append('\t');}
-	"\\n" 				{string.append('\n');}
-	"\\r"				{string.append('\r');}
-	"\\\""				{string.append('\"');}
-	"\\'"				{string.append('\'');}
-	"\\\\"				{string.append('\\');}
+	\"					{ yybegin(YYINITIAL); return symbol(sym.STRING_LITERAL, string.toString()); }
+	{StringChar}+		{ string.append(yytext());}
+	\\b 				{ string.append('\b');}
+	\\f 				{ string.append('\f');}
+	\\t 				{ string.append('\t');}
+	\\n 				{ string.append('\n');}
+	\\r					{ string.append('\r');}
+	\\\"				{ string.append('\"');}
+	\\'					{ string.append('\'');}
+	\\\\				{ string.append('\\');}
 
 //	Error Checking
 	\\.					{throw new RunTimeException("Illegal Escape Sequence \""+yytext()+"\"");}
@@ -166,15 +163,15 @@ CharChar = [^\n\r\'\\]
 
 <CHARLITERAL> {
 
-	{CharChar}\'		{yybegin(YYINITIAL);return symbol(CHAR_LITERAL,yytext().charAt(0));}
-	"\\b"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\b');}
-	"\\f"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\f');}
-	"\\t"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\t');}
-	"\\n"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\n');}
-	"\\r"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\r');}
-	"\\\""\'			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\"');}
-	"\\'"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\'');}
-	"\\\\"\'			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\\');}
+	{CharChar}\'		{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL,yytext().charAt(0));}
+	\\b					{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\b');}
+	\\f 				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\f');}
+	\\t 				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\t');}
+	\\n					{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\n');}
+	\\r					{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\r');}
+	\\\"				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\"');}
+	\\\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\'');}
+	\\\\				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\\');}
 
 //	Error Checking
 	\\.					{throw new RunTimeException("Illegal Escape Sequence \""+yytext()+"\"");}

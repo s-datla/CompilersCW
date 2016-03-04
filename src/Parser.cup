@@ -44,11 +44,11 @@ parser code {:
 
 // Math Operators
 
-terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
+terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_FSLASH, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
 
 // Logical Operators
 
-terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, SYM_CONCAT;
+terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, CONCAT;
 
 // Punctuation 
 
@@ -61,11 +61,11 @@ terminal MAIN, DICT, SEQ, CHAR, BOOL, INT, RAT, FLOAT;
 
 // Flow Control
 
-terminal IF, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
+terminal IFEL, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
 
 // Literals
 
-terminal IDENT, CHAR_LITERAL, INT_LITERAL, STRING_LITERAL, BOOL_LITERAL;
+terminal IDENT, CHAR_LITERAL, INT_LITERAL, STRING_LITERAL, BOOL_LITERAL, FLOAT_LITERAL, RAT_LITERAL;
 
 //OTHER
 
@@ -76,7 +76,7 @@ terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD;
 
 nonterminal statement, top_level; 
 
-nonterminal type_name, aggr_type, prim_type, aggr_possible_type, signed_int, unsigned_int, FLOAT_LITERAL, RAT_LITERAL;
+nonterminal type_name, aggr_type, prim_type, aggr_possible_type, signed_int, unsigned_int;
 
 nonterminal dict_decl, dict_literal, dict_comma_seperation, element_accsr;
 
@@ -93,7 +93,7 @@ nonterminal decl, simple_exp, return_exp, aggr_literal, literal, operations;
 precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR, SYM_PRCNT;
 precedence left SYM_STAR, SYM_DIV;
 precedence right SYM_CARET;
-precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, SYM_CONCAT; 
+precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CONCAT; 
 
 
 
@@ -160,7 +160,7 @@ dict_comma_seperation ::= return_exp SYM_COLON return_exp
 
 element_accsr ::= IDENT SYM_LSQR return_exp SYM_RSQR
               ;
-              
+
 // Sequences ----------------------------------------------------
 
 seq_decl ::= SEQ SYM_LARROW aggr_possible_type SYM_RARROW;
@@ -220,9 +220,9 @@ accessor  ::= IDENT
 
 function_call ::= IDENT SYM_LPAREN declaration_list SYM_RPAREN;
 
-if_else ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
-        | IF SYM_LPAREN return_exp SYM_RPAREN THEN block FI
-        | IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELIF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
+if_else ::= IFEL SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
+        | IFEL SYM_LPAREN return_exp SYM_RPAREN THEN block FI
+        | IFEL SYM_LPAREN return_exp SYM_RPAREN THEN block ELIF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
         ;
 
 while_do ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO block OD
@@ -303,5 +303,5 @@ operations ::= SYM_PLUS       {: RESULT = new Node("+"); :}
            | NOTEQ          {: RESULT = new Node("!="); :}
            | LEQ            {: RESULT = new Node("<="); :}
            | GEQ            {: RESULT = new Node(">="); :}
-           | SYM_CONCAT     {: RESULT = new Node("::"); :}
+           | CONCAT     {: RESULT = new Node("::"); :}
            ;
