@@ -44,7 +44,7 @@ parser code {:
 
 // Math Operators
 
-terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
+terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, LEQ, GEQ;
 
 // Logical Operators
 
@@ -52,7 +52,7 @@ terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, CONCAT;
 
 // Punctuation 
 
-terminal SYM_EXCLPNT, SYM_HASH, SYM_DOLLAR, SYM_AMP, SYM_LPAREN, SYM_RPAREN, SYM_COMMA, SYM_PERIOD, SYM_COLON, SYM_SEMI, SYM_QSTN, SYM_AT, SYM_LSQR, SYM_RSQR, SYM_LCRL, SYM_RCRL, SYM_BLASH, SYM_USCORE, SYM_GRAVE, SYM_TILDE, SYM_PIPE;
+terminal SYM_EXCLPNT, SYM_LPAREN, SYM_RPAREN, SYM_COMMA, SYM_PERIOD, SYM_COLON, SYM_SEMI, SYM_LSQR, SYM_RSQR, SYM_LCRL, SYM_RCRL, SYM_USCORE;
 
 // TYPES 
 
@@ -65,7 +65,7 @@ terminal IFEL, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
 
 // Literals
 
-terminal IDENT, CHAR_LITERAL, INT_LITERAL, STRING_LITERAL, BOOL_LITERAL, FLOAT_LITERAL, RAT_LITERAL;
+terminal IDENT, CHAR_LITERAL, INT_LITERAL, STRING_LITERAL, BOOL_LITERAL;
 
 //OTHER
 
@@ -88,26 +88,30 @@ nonterminal assignment, io_calls, accessor, function_call, if_else, while_do, fo
 
 nonterminal decl, simple_exp, return_exp, aggr_literal, literal, operations;
 
+nonterminal FLOAT_LITERAL, RAT_LITERAL;
+
+nonterminal program, main_decl, statements; 
+
 /* Precedences ----------------------*/
 
-precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR, SYM_PRCNT;
+precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR;
 precedence left SYM_STAR, SYM_DIV;
 precedence right SYM_CARET;
 precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CONCAT; 
 
 
 
+
 /* The grammar ----------------------*/
 
 // High level ---------------------------------------------------
-start with top_level; 
+start with program; 
 
-top_level ::= statement:ss {:
-                if(debug()) System.out.println((Node)ss);
-              :}
-            ;
+program ::= main_decl ;
 
-statement ::=  simple_exp:s SYM_SEMI statement {:
+main_decl ::= statements ;
+
+statements ::=  simple_exp:s SYM_SEMI statements {:
                 RESULT = (Node)s;
               :}
           | //Empty Set

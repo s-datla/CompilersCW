@@ -6,80 +6,67 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int LEN = 65;
-  public static final int SYM_EQUAL = 7;
-  public static final int BOOL = 44;
-  public static final int SYM_SEMI = 28;
-  public static final int READ = 70;
-  public static final int INT_LITERAL = 58;
-  public static final int SYM_AMP = 22;
-  public static final int NOTEQ = 17;
-  public static final int IFEL = 48;
-  public static final int TOP = 63;
-  public static final int SYM_LCRL = 33;
-  public static final int FDEF = 67;
-  public static final int GEQ = 13;
-  public static final int DICT = 41;
-  public static final int SYM_BLASH = 35;
-  public static final int SYM_AT = 30;
-  public static final int ELIF = 51;
-  public static final int SYM_MINUS = 3;
-  public static final int FI = 72;
-  public static final int SYM_RCRL = 34;
-  public static final int FLOAT = 47;
-  public static final int SYM_BSLASH = 6;
-  public static final int THEN = 49;
-  public static final int SYM_COLON = 27;
-  public static final int SYM_CARET = 10;
-  public static final int SYM_PRCNT = 11;
-  public static final int SYM_PIPE = 39;
-  public static final int SYM_QSTN = 29;
-  public static final int SYM_PLUS = 2;
-  public static final int SYM_RARROW = 9;
-  public static final int SYM_EXCLPNT = 19;
-  public static final int RAT = 46;
-  public static final int ALIAS = 68;
-  public static final int FORALL = 53;
-  public static final int SYM_LARROW = 8;
-  public static final int WHILE = 52;
-  public static final int SYM_STAR = 4;
-  public static final int TDEF = 66;
-  public static final int CHAR = 43;
-  public static final int DO = 54;
-  public static final int VOID = 69;
-  public static final int RETURN = 55;
-  public static final int CONCAT = 18;
-  public static final int ELSE = 50;
-  public static final int INT = 45;
+  public static final int FORALL = 42;
+  public static final int SEQ = 31;
+  public static final int STRING_LITERAL = 48;
+  public static final int SYM_EQUAL = 6;
+  public static final int CHAR = 32;
+  public static final int CHAR_LITERAL = 46;
+  public static final int CONCAT = 16;
+  public static final int INT = 34;
+  public static final int SYM_RSQR = 25;
+  public static final int SYM_COLON = 22;
+  public static final int SYM_LARROW = 7;
+  public static final int SYM_LCRL = 26;
+  public static final int TDEF = 53;
+  public static final int IN = 51;
+  public static final int BOOL = 33;
+  public static final int SYM_AND = 13;
+  public static final int FI = 59;
+  public static final int RAT = 35;
+  public static final int GEQ = 11;
+  public static final int SYM_RARROW = 8;
+  public static final int MAIN = 29;
+  public static final int SYM_USCORE = 28;
+  public static final int SYM_OR = 12;
   public static final int SYM_DIV = 5;
-  public static final int STRING_LITERAL = 59;
-  public static final int EQEQ = 16;
   public static final int EOF = 0;
-  public static final int PRINT = 71;
-  public static final int SYM_COMMA = 25;
-  public static final int MAIN = 40;
-  public static final int RAT_LITERAL = 62;
-  public static final int FLOAT_LITERAL = 61;
-  public static final int SYM_PERIOD = 26;
-  public static final int IN = 64;
-  public static final int SYM_LSQR = 31;
-  public static final int IDENT = 56;
+  public static final int OD = 60;
+  public static final int RETURN = 44;
+  public static final int SYM_PERIOD = 21;
   public static final int error = 1;
-  public static final int SEQ = 42;
-  public static final int SYM_USCORE = 36;
-  public static final int SYM_TILDE = 38;
-  public static final int OD = 73;
-  public static final int SYM_RPAREN = 24;
-  public static final int CHAR_LITERAL = 57;
-  public static final int SYM_LPAREN = 23;
-  public static final int SYM_RSQR = 32;
-  public static final int SYM_DOLLAR = 21;
-  public static final int SYM_GRAVE = 37;
-  public static final int SYM_OR = 14;
-  public static final int SYM_HASH = 20;
-  public static final int BOOL_LITERAL = 60;
-  public static final int LEQ = 12;
-  public static final int SYM_AND = 15;
+  public static final int IFEL = 37;
+  public static final int EQEQ = 14;
+  public static final int SYM_LPAREN = 18;
+  public static final int FDEF = 54;
+  public static final int IDENT = 45;
+  public static final int VOID = 56;
+  public static final int TOP = 50;
+  public static final int SYM_SEMI = 23;
+  public static final int SYM_RPAREN = 19;
+  public static final int ELSE = 39;
+  public static final int DICT = 30;
+  public static final int SYM_STAR = 4;
+  public static final int READ = 57;
+  public static final int SYM_LSQR = 24;
+  public static final int WHILE = 41;
+  public static final int FLOAT = 36;
+  public static final int SYM_MINUS = 3;
+  public static final int THEN = 38;
+  public static final int SYM_RCRL = 27;
+  public static final int SYM_EXCLPNT = 17;
+  public static final int LEQ = 10;
+  public static final int LEN = 52;
+  public static final int ALIAS = 55;
+  public static final int SYM_PLUS = 2;
+  public static final int SYM_COMMA = 20;
+  public static final int ELIF = 40;
+  public static final int PRINT = 58;
+  public static final int BOOL_LITERAL = 49;
+  public static final int DO = 43;
+  public static final int INT_LITERAL = 47;
+  public static final int NOTEQ = 15;
+  public static final int SYM_CARET = 9;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -87,12 +74,10 @@ public class sym {
   "SYM_MINUS",
   "SYM_STAR",
   "SYM_DIV",
-  "SYM_BSLASH",
   "SYM_EQUAL",
   "SYM_LARROW",
   "SYM_RARROW",
   "SYM_CARET",
-  "SYM_PRCNT",
   "LEQ",
   "GEQ",
   "SYM_OR",
@@ -101,26 +86,17 @@ public class sym {
   "NOTEQ",
   "CONCAT",
   "SYM_EXCLPNT",
-  "SYM_HASH",
-  "SYM_DOLLAR",
-  "SYM_AMP",
   "SYM_LPAREN",
   "SYM_RPAREN",
   "SYM_COMMA",
   "SYM_PERIOD",
   "SYM_COLON",
   "SYM_SEMI",
-  "SYM_QSTN",
-  "SYM_AT",
   "SYM_LSQR",
   "SYM_RSQR",
   "SYM_LCRL",
   "SYM_RCRL",
-  "SYM_BLASH",
   "SYM_USCORE",
-  "SYM_GRAVE",
-  "SYM_TILDE",
-  "SYM_PIPE",
   "MAIN",
   "DICT",
   "SEQ",
@@ -142,8 +118,6 @@ public class sym {
   "INT_LITERAL",
   "STRING_LITERAL",
   "BOOL_LITERAL",
-  "FLOAT_LITERAL",
-  "RAT_LITERAL",
   "TOP",
   "IN",
   "LEN",

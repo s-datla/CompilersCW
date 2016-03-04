@@ -96,7 +96,7 @@ CharChar = [^\n\r\'\\]
 	"="					{return symbol(sym.SYM_EQUAL);}
 	">"					{return symbol(sym.SYM_RARROW);}
 	"^"					{return symbol(sym.SYM_CARET);}
-	"%"					{return symbol(sym.SYM_PRCNT);}
+//	"%"					{return symbol(sym.SYM_PRCNT);}
 	"<="				{return symbol(sym.LEQ);}
 	">="				{return symbol(sym.GEQ);}
 
@@ -111,26 +111,27 @@ CharChar = [^\n\r\'\\]
 
 //	Punctuation
 
-	"#"					{return symbol(sym.SYM_HASH);}
-	"$"					{return symbol(sym.SYM_DOLLAR);}
-	"&"					{return symbol(sym.SYM_AMP);}
+//	"#"					{return symbol(sym.SYM_HASH);}
+//	"$"					{return symbol(sym.SYM_DOLLAR);}
+//	"&"					{return symbol(sym.SYM_AMP);}
 	"("					{return symbol(sym.SYM_LPAREN);}
 	")"					{return symbol(sym.SYM_RPAREN);}
 	","					{return symbol(sym.SYM_COMMA);}
 	"."					{return symbol(sym.SYM_PERIOD);}
 	":"					{return symbol(sym.SYM_COLON);}
 	";"					{return symbol(sym.SYM_SEMI);}
-	"?"					{return symbol(sym.SYM_QSTN);}
-	"@"					{return symbol(sym.SYM_AT);}
+//	"?"					{return symbol(sym.SYM_QSTN);}
+//	"@"					{return symbol(sym.SYM_AT);}
 	"["					{return symbol(sym.SYM_LSQR);}
 	"]"					{return symbol(sym.SYM_RSQR);}
 	"{"					{return symbol(sym.SYM_LCRL);}
 	"}"					{return symbol(sym.SYM_RCRL);}
-	\\					{return symbol(sym.SYM_BSLASH);}
+/*	\\					{return symbol(sym.SYM_BSLASH);}
 	"_"					{return symbol(sym.SYM_USCORE);}
 	"`"					{return symbol(sym.SYM_GRAVE);}
 	"~"					{return symbol(sym.SYM_TILDE);}
 	"|"					{return symbol(sym.SYM_PIPE);}
+*/
 
 //	Boolean Values
 	
