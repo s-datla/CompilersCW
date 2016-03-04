@@ -1,0 +1,182 @@
+program ::= list_declarations;
+
+// CANNOT BE EMPTY
+list_declarations ::= global variable declarations 
+						| ident decl
+						| funct decl
+						| main decl
+						;
+
+funct body ::= 
+
+
+
+// DECLARATIONS 
+
+declaration ::= all types IDENT
+				| IDENT IDENT
+				;
+
+ident decl ::= "tdef" IDENT "{" ident body "}";
+
+ident body ::= declaration
+			| ident body "," declaration
+			;
+
+
+funct decl ::= "fdef" function types IDENT LPAREN funct params RPAREN LCRL funct body RCRL
+			| "fdef" function types IDENT LPAREN RPAREN LCRL funct body RCRL
+			;
+
+funct params ::= declaration
+				| funct params "," declaration
+				;
+
+dict decl ::= "dict" "<" aggr_poss_types "," aggr_poss_types ">";
+
+seq decl ::= "seq" "<" aggr_poss_types ">";
+
+alias decl ::= "alias" IDENT IDENT;
+
+
+
+// TYPES 
+
+primitive types ::= "int"
+				| "char"
+				| "float"
+				| "bool"
+				| "rat"
+				;
+
+aggr types ::= dict_decl
+			| seq_decl
+			;
+
+all types :: = aggr types | primitive types;
+
+aggr_poss_types ::= all types 
+					| IDENT
+					| top
+					;
+
+function types ::= all types
+				| IDENT
+				;
+
+// LITERALS
+
+float literal ::= Integer "." Integer ;
+rational literal ::= Integer "_" Integer "/" Integer
+
+dict literal ::= LCRL dict body RCRL
+				| LCRL RCRL
+				;
+
+dict body ::= exp ":" exp
+			| dict body "comma" exp ":" exp
+			;
+
+seq literal ::= LSQR seq body RSQR
+				| LSQR RSQR
+				;
+
+seq body ::= exp
+			| seq body "comma" exp
+			;
+
+num literals ::= integer literal
+			| float literal
+			| rational literal
+ 			;
+
+neg num literals ::= "-" Numbers;
+
+aggr literals ::= seq literal
+				| dict literal
+				;
+
+all literals ::= aggr literals | string literal | char literal | bool literal | num literals | neg num literals;
+
+literals list ::= all literals
+				| literals list "," literals list
+				| LSQR literals list RSQR
+				| LPAREN literals list RPAREN
+				| LCRL literals list RCRL
+				;
+
+// OPERATORS
+
+num operators ::= PLUS
+				| MINUS
+				| STAR
+				| DIV
+				| CARET
+				;
+
+bool operators ::= NOT
+				| AND
+				| OR
+				| EQEQ
+				;
+
+dict operators ::= "in";
+
+seq operators ::= "::";
+
+
+// EXPRESSIONS 
+
+bool_exp ::= IDENT
+			| bool literal
+			| bool_exp bool_operator bool_exp
+			| return_exp bool_operator return_exp
+			;
+
+return_exp ::= IDENT
+			| function call
+
+aggr_return_exp ::=
+
+exp_list ::= return_exp
+			| return_exp "," exp_list
+			;
+
+// STATEMENTS
+
+statement ::= assignment ";"
+			| input ";"
+			| output ";"
+			| function call
+			| control flow
+			;
+
+assignment ::= IDENT "=" return_exp
+
+input ::= "read" IDENT
+
+output ::= "print" return_exp
+
+function call ::= IDENT LPAREN exp_list RPAREN
+				| IDENT LPAREN RPAREN
+				;
+
+if statement ::= "if" LPAREN bool_exp RPAREN "then" function body if extender "fi";
+
+if extender ::= "else" function body 
+			| "elif" bool_exp "then" function body if extender 
+			;
+ 
+loop body ::= "do" function body "od";
+
+while statement ::= "while" LPAREN bool_exp RPAREN loop body
+
+forall statement ::= "forall" LPAREN IDENT "in" IDENT RPAREN loop body
+					| "forall" LPAREN IDENT "in" aggr_return_exp RAPREN loop body
+					;
+
+loops ::= while statement | forall statement ;
+
+return statement ::= "return" return_exp
+
+
