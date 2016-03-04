@@ -199,7 +199,6 @@ fdef_decl ::= FDEF type_name IDENT SYM_LPAREN declaration_list SYM_RPAREN SYM_LC
 
 declaration_list  ::= type_name IDENT 
                   | type_name IDENT SYM_COMMA declaration_list
-                  | alias_decl
                   ;
 
 alias_decl  ::= ALIAS IDENT IDENT;
@@ -223,21 +222,20 @@ accessor  ::= IDENT
           | accessor SYM_PERIOD IDENT
           ;
 
-/*
-block ::= 
+function_call ::= IDENT SYM_LPAREN declaration_list SYM_RPAREN
+
 
 ifelse ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
-        | IF SYM_LPAREN return_exp SYM_RPAREN then block FI
-
-whiledo ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO listA listB OD
-        | WHILE SYM_LPAREN return_exp SYM_RPAREN DO listB, OD
+        | IF SYM_LPAREN return_exp SYM_RPAREN THEN block FI
+        | IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELIF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
         ;
 
-forall ::= FORALL SYM_LPAREN 
+whiledo ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO block OD
+        ;
 
-LOL
-hahaha
-*/
+forall ::= FORALL SYM_LPAREN return_exp IN aggr_literal SYM_RPAREN DO block OD; 
+
+
 
 // Expressions --------------------------------------------------
 
@@ -250,6 +248,8 @@ return_exp  ::= IDENT
             | SYM_EXCLPNT return_exp // does this work? 
             | literal 
             ;
+
+aggr_literal ::= dict_literal | seq_literal;
 
 literal ::= BOOL_LITERAL
         | CHAR_LITERAL
