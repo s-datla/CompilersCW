@@ -88,6 +88,8 @@ precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CO
 
 
 /* The grammar ----------------------*/
+
+// High level 
 start with top_level; 
 
 top_level ::= statements:ss {:
@@ -111,9 +113,10 @@ statement ::=  simple_exp:s SYM_SEMI {:
             ;
 
 
-// Type defs 
+//------------------------------------------------- Type defs
+
 aggr_type ::= dict_decl:i {: RESULT = new Node(i); :}
-          | SEQ:i {: RESULT = new Node(i); :}
+          | seq_decl :i {: RESULT = new Node(i); :}
           ;
 
 prim_type ::= BOOL:i {: RESULT = new Node(i); :}
@@ -125,34 +128,24 @@ prim_type ::= BOOL:i {: RESULT = new Node(i); :}
 
 type_name ::= aggr_type | prim_type ; 
 
-seq_type ::= type_name 
+aggr_pos_type ::= type_name 
             | top
             | IDENT 
-            | seq_decl
-            | dict
             ;
 
-dict_type ::= type_name 
-            | top
-            | IDENT
-            | dict_decl
-            | seq
-            ;
+// Float handling 
 
 signed_int ::= SYM_MINUS:m INT_LITERAL;
-
 unsigned_int ::= INT_LITERAL;
-
 FLOAT_LITERAL ::= signed_int:i1 SYM_PERIOD:p unsigned_int:i2
               | unsigned_int:i1 SYM_PERIOD:p unsigned_int:i2
               ;
-
 RAT_LITERAL ::= signed_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
             | unsigned_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
             ;
 
-
 // Expressions
+
 decl ::= type_name IDENT | IDENT IDENT;  
 
 assignment  ::= decl SYM_EQUAL return_exp 
@@ -163,6 +156,7 @@ simple_exp ::= return_exp | assignment;
 
 return_exp  ::= IDENT
             | return_exp operator return_exp
+            | SYM_EXCLPNT return_exp // does this work? 
             | literal 
             ;
 
@@ -194,9 +188,9 @@ operations ::= SYM_PLUS       {: RESULT = new Node("+"); :}
 
 aggr_op ::= SYM_CONCAT     {: RESULT = new Node("::"); :};
 
-
 // Dictionary Work
-dict_decl ::= DICT SYM_LARROW dict_type SYM_COMMA dict_type SYM_RARROW
+
+dict_decl ::= DICT SYM_LARROW aggr_pos_type SYM_COMMA aggr_pos_type SYM_RARROW
           ; 
 
 dict_literal  ::= SYM_LCRL SYM_RCRL
@@ -207,10 +201,12 @@ dict_comma_seperation ::= return_exp SYM_COLON return_exp
                       | dict_comma_seperation SYM_COMMA dict_comma_seperation
                       ;
 
-element_accsr ::= return_exp SYM_LSQR return_exp SYM_RSQR
+element_accsr ::= IDENT SYM_LSQR return_exp SYM_RSQR
               ;
 
-seq_decl ::= SEQ SYM_LARROW seq_type SYM_RARROW;
+// Sequences 
+
+seq_decl ::= SEQ SYM_LARROW aggr_pos_type SYM_RARROW;
 
 seq_comma_seperated ::= return_exp SYM_COMMA seq_list
                     | return_exp 
@@ -221,8 +217,54 @@ seq_literal ::= SYM_LSQR seq_comma_seperated SYM_RSQR
             | SYM_LSQR SYM_RSQR 
             ; 
 ​
-seq_splicing ::= return_exp SYM_LSQR return_exp SYM_COLON return_exp SYM_RSQR 
-            | return_exp SYM_LSQR SYM_COLON return_exp SYM_RSQR 
-            | return_exp SYM_LSQR return_exp SYM_COLON SYM_RSQR 
+seq_splicing ::= IDENT SYM_LSQR return_exp SYM_COLON return_exp SYM_RSQR 
+            | IDENT SYM_LSQR SYM_COLON return_exp SYM_RSQR 
+            | IDENT SYM_LSQR return_exp SYM_COLON SYM_RSQR 
             ;
+
+len_expr ::= LEN SYM_LPAREN IDENT SYM_RPAREN
+          | LEN SYM_LPAREN seq_literal SYM_RPAREN
+          | LEN SYM_LPAREN dict_literal SYM_RPAREN 
+          ;
+
+in_expr ::= CHAR_LITERAL IN IDENT
+          | CHAR_LITERAL IN seq_decl 
+          | CHAR_LITERAL IN dict_decl
+          ;
+
+return_exp_list ::= return_exp
+                | return_exp SYM_COMMA return_exp_list
+                | 
+                ;
+
+// Control statements
+
+/*
+block ::= 
+
+ifelse ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
+        | IF SYM_LPAREN return_exp SYM_RPAREN then block FI
+
+whiledo ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO listA listB OD
+        | WHILE SYM_LPAREN return_exp SYM_RPAREN DO listB, OD
+        ;
+
+forall ::= FORALL SYM_LPAREN 
+
+*/
+
+// --typedefs 
+
+accepted_variable ::= type_name literal 
+                    | type_name IDENT 
+                    | type_name IDENT SYM_COMMA accepted_variable
+                    | type_name literal SYM_COMMA accepted_variable
+                    ;
+
+declaration_list ::= SYM_LPAREN accepeted_variable SYM_RPAREN;
+
+tdef_decl ::= TDEF IDENT SYM_LPAREN declarations_list SYM_RPAREN;
+
+fdef_decl := FDEF type_name IDENT SYM_LPAREN type_name SYM_RPAREN 
+
 
