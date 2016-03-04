@@ -206,10 +206,6 @@ alias_decl  ::= ALIAS IDENT IDENT;
 
 // Statements ---------------------------------------------------
 
-return  ::= RETURN return_exp
-        | RETURN
-        ;
-
 assignment  ::= decl SYM_EQUAL return_exp 
             | IDENT SYM_EQUAL return_exp
             ;
@@ -224,7 +220,6 @@ accessor  ::= IDENT
 
 function_call ::= IDENT SYM_LPAREN declaration_list SYM_RPAREN
 
-
 ifelse ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
         | IF SYM_LPAREN return_exp SYM_RPAREN THEN block FI
         | IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELIF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
@@ -235,7 +230,9 @@ whiledo ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO block OD
 
 forall ::= FORALL SYM_LPAREN return_exp IN aggr_literal SYM_RPAREN DO block OD; 
 
-
+return  ::= RETURN return_exp
+        | RETURN
+        ;
 
 // Expressions --------------------------------------------------
 
