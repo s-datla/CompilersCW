@@ -48,7 +48,7 @@ terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_BSLASH, SYM_EQUAL, SYM_LARR
 
 // Logical Operators
 
-terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, CONCAT;
+terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, SYM_CONCAT;
 
 // Punctuation 
 
@@ -61,7 +61,7 @@ terminal MAIN, DICT, SEQ, CHAR, BOOL, INT, RAT, FLOAT;
 
 // Flow Control
 
-terminal IFEL, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
+terminal IF, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
 
 // Literals
 
@@ -80,11 +80,11 @@ nonterminal type_name, aggr_type, prim_type, aggr_possible_type, signed_int, uns
 
 nonterminal dict_decl, dict_literal, dict_comma_seperation, element_accsr;
 
-nonterminal seq_decl, seq_comma_seperated, seq_literal, seq_splicing, len_expr, in_exprl
+nonterminal seq_decl, seq_comma_seperated, seq_literal, seq_splicing, len_expr, in_expr;
 
 nonterminal tdef_decl, fdef_decl, declaration_list, alias_decl;
 
-nonterminal assignment, io_calls, accessor, function_call, ifelse, whiledo, forall, block, stat, stat_part, stat_list, declarations, decl_list, return;
+nonterminal assignment, io_calls, accessor, function_call, if_else, while_do, for_all, block, stat, stat_part, stat_list, declarations, decl_list, return;
 
 nonterminal decl, simple_exp, return_exp, aggr_literal, literal, operations;
 
@@ -93,7 +93,7 @@ nonterminal decl, simple_exp, return_exp, aggr_literal, literal, operations;
 precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR, SYM_PRCNT;
 precedence left SYM_STAR, SYM_DIV;
 precedence right SYM_CARET;
-precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CONCAT; 
+precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, SYM_CONCAT; 
 
 
 
@@ -141,7 +141,7 @@ prim_type ::= BOOL:i {: RESULT = new Node(i); :}
           ;
 
 aggr_possible_type  ::= type_name 
-                    | top
+                    | TOP
                     | IDENT 
                     ;
 
@@ -175,15 +175,15 @@ element_accsr ::= IDENT SYM_LSQR return_exp SYM_RSQR
 
 seq_decl ::= SEQ SYM_LARROW aggr_possible_type SYM_RARROW;
 
-seq_comma_seperated ::= return_exp SYM_COMMA seq_list
+seq_comma_seperated ::= return_exp SYM_COMMA seq_comma_seperated
                     | return_exp 
                     | /*empty sequence*/
                     ;
-​
+
 seq_literal ::= SYM_LSQR seq_comma_seperated SYM_RSQR 
             | SYM_LSQR SYM_RSQR 
             ; 
-​
+
 seq_splicing  ::= IDENT SYM_LSQR return_exp SYM_COLON return_exp SYM_RSQR 
               | IDENT SYM_LSQR SYM_COLON return_exp SYM_RSQR 
               | IDENT SYM_LSQR return_exp SYM_COLON SYM_RSQR 
@@ -228,17 +228,17 @@ accessor  ::= IDENT
           | accessor SYM_PERIOD IDENT
           ;
 
-function_call ::= IDENT SYM_LPAREN declaration_list SYM_RPAREN
+function_call ::= IDENT SYM_LPAREN declaration_list SYM_RPAREN;
 
-ifelse  ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
+if_else ::= IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
         | IF SYM_LPAREN return_exp SYM_RPAREN THEN block FI
         | IF SYM_LPAREN return_exp SYM_RPAREN THEN block ELIF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
         ;
 
-whiledo ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO block OD
+while_do ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO block OD
         ;
 
-forall ::= FORALL SYM_LPAREN return_exp IN aggr_literal SYM_RPAREN DO block OD;
+for_all ::= FORALL SYM_LPAREN return_exp IN aggr_literal SYM_RPAREN DO block OD;
 
 block ::= stat_list 
       | decl_list
@@ -252,9 +252,9 @@ stat  ::= function_call
       ;
 
 stat_part ::= stat SYM_SEMI
-          | ifelse
-          | whiledo
-          | forall
+          | if_else
+          | while_do
+          | for_all
           ;
 
 stat_list ::= stat_list stat_part
@@ -313,5 +313,5 @@ operations ::= SYM_PLUS       {: RESULT = new Node("+"); :}
            | NOTEQ          {: RESULT = new Node("!="); :}
            | LEQ            {: RESULT = new Node("<="); :}
            | GEQ            {: RESULT = new Node(">="); :}
-           | SYM_CONCAT     {: RESULT = new Node("::"); :};
+           | SYM_CONCAT     {: RESULT = new Node("::"); :}
            ;
