@@ -9,8 +9,12 @@ import java_cup.runtime.*;
 %column
 %debug
 
+%eofval{
+	return symbol(sym.EOF);
+%eofval}
+
 %{
-	StringBuffer input = new StringBuffer();
+	StringBuffer string = new StringBuffer();
 	private Symbol symbol(int type) {
 		return new Symbol(type, yyline, yycolumn);
 	}
@@ -37,8 +41,6 @@ ID_Character = {Letter} | {Digit} | "_"
 Identifier  = {Letter}{ID_Character}* 
 
 Integer = 0 | [1-9]{Digit}*
-Float = {Digit}+ "." {Digit}* | "."{Digit}+
-
 
 StringChar  = [^\n\r\"\\]
 CharChar = [^\n\r\'\\]
@@ -50,7 +52,7 @@ CharChar = [^\n\r\'\\]
 
 //	State Change
 
-	\"					{string.setLength(0); yybegin(STRING); }
+	\"					{string.setLength(0); yybegin(STRING);}
 	\'					{yybegin(CHARLITERAL);}
 
 //	Predefined Function Names
@@ -83,18 +85,20 @@ CharChar = [^\n\r\'\\]
 	"od"				{return symbol(sym.OD);}
 	"return"			{return symbol(sym.RETURN);}
 
+
 //	Mathematical Operators
 
 	"+"					{return symbol(sym.SYM_PLUS);}
 	"-"					{return symbol(sym.SYM_MINUS);}
 	"*"					{return symbol(sym.SYM_STAR);}
+	"/"					{return symbol(sym.SYM_DIV);}
 	"<"					{return symbol(sym.SYM_LARROW);}
 	"="					{return symbol(sym.SYM_EQUAL);}
 	">"					{return symbol(sym.SYM_RARROW);}
 	"^"					{return symbol(sym.SYM_CARET);}
 	"%"					{return symbol(sym.SYM_PRCNT);}
 	"<="				{return symbol(sym.LEQ);}
-	"=>"				{return symbol(sym.GEQ);}
+	">="				{return symbol(sym.GEQ);}
 
 // 	Logical Operators
 
@@ -103,10 +107,10 @@ CharChar = [^\n\r\'\\]
 	"=="				{return symbol(sym.EQEQ);}
 	"!="				{return symbol(sym.NOTEQ);}
 	"::"				{return symbol(sym.CONCAT);}
+	"!"					{return symbol(sym.SYM_EXCLPNT);}
 
 //	Punctuation
 
-	"!"					{return symbol(sym.SYM_EXCLPNT);}
 	"#"					{return symbol(sym.SYM_HASH);}
 	"$"					{return symbol(sym.SYM_DOLLAR);}
 	"&"					{return symbol(sym.SYM_AMP);}
@@ -114,7 +118,6 @@ CharChar = [^\n\r\'\\]
 	")"					{return symbol(sym.SYM_RPAREN);}
 	","					{return symbol(sym.SYM_COMMA);}
 	"."					{return symbol(sym.SYM_PERIOD);}
-	"/"					{return symbol(sym.SYM_FSLASH);}
 	":"					{return symbol(sym.SYM_COLON);}
 	";"					{return symbol(sym.SYM_SEMI);}
 	"?"					{return symbol(sym.SYM_QSTN);}
@@ -131,51 +134,53 @@ CharChar = [^\n\r\'\\]
 
 //	Boolean Values
 	
-//	"T"					{return symbol(sym.BOOLEAN,true);}
-//	"F"					{return symbol(sym.BOOLEAN,false);}
+//	"T"					{return symbol(sym.BOOL_LITERAL,true);}
+//	"F"					{return symbol(sym.BOOL_LITERAL,false);}x
 
 // Macros
 	
 	{Identifier}		{return symbol(sym.IDENT,yytext());}
 	{Integer}			{return symbol(sym.INT_LITERAL,new Integer(yytext()));}
-	{Float}				{return symbol(sym.FLOAT_LITERAL,new Float(yytext().substring(0,yylength()-1)));}
 	{Delimiter}			{/*	Don't do anything */}
 	{Comment}			{/* Don't do anything */}
 }
 
 <STRING> {
-	\"					{ yybegin(YYINITIAL); return symbol(sym.STRING_LITERAL, string.toString()); }
-	{StringChar}+		{ string.append(yytext());}
-	\\b 				{ string.append('\b');}
-	\\f 				{ string.append('\f');}
-	\\t 				{ string.append('\t');}
-	\\n 				{ string.append('\n');}
-	\\r					{ string.append('\r');}
-	\\\"				{ string.append('\"');}
-	\\'					{ string.append('\'');}
-	\\\\				{ string.append('\\');}
+
+	\"					{yybegin(YYINITIAL);
+							return symbol(sym.STRING_LITERAL,
+							string.toString()); }
+	{StringChar}+		{string.append(yytext());}
+	"\\b" 				{string.append('\b');}
+	"\\f" 				{string.append('\f');}
+	"\\t" 				{string.append('\t');}
+	"\\n" 				{string.append('\n');}
+	"\\r"				{string.append('\r');}
+	"\\\""				{string.append('\"');}
+	"\\'"				{string.append('\'');}
+	"\\\\"				{string.append('\\');}
 
 //	Error Checking
-	\\.					{throw new RunTimeException("Illegal Escape Sequence \""+yytext()+"\"");}
-	{LineEnd}			{throw new RunTimeException("Illegal Termination of String");}
+	\\.					{throw new Error("Illegal Termination of String <" + yytext() + ">");}
+	{LineEnd}			{throw new Error("Illegal Termination of String <" + yytext() + ">");}
 	
 }
 
 <CHARLITERAL> {
 
-	{CharChar}\'		{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL,yytext().charAt(0));}
-	\\b					{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\b');}
-	\\f 				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\f');}
-	\\t 				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\t');}
-	\\n					{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\n');}
-	\\r					{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\r');}
-	\\\"				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\"');}
-	\\\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\'');}
-	\\\\				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\\');}
+	{CharChar}\'		{yybegin(YYINITIAL);return symbol(sym.CHAR_LITERAL,yytext().charAt(0));}
+	"\\b"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\b');}
+	"\\f"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\f');}
+	"\\t"\' 			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\t');}
+	"\\n"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\n');}
+	"\\r"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\r');}
+	"\\\""\'			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\"');}
+	"\\'"\'				{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\'');}
+	"\\\\"\'			{yybegin(YYINITIAL); return symbol(sym.CHAR_LITERAL, '\\');}
 
 //	Error Checking
-	\\.					{throw new RunTimeException("Illegal Escape Sequence \""+yytext()+"\"");}
-	{LineEnd}			{throw new RunTimeException("Illegal Termination of String");}
+	\\.					{throw new Error("Illegal Termination of Character <" + yytext() + ">");}
+	{LineEnd}			{throw new Error("Illegal Termination of Character <" + yytext() + ">");}
 
 
 }

@@ -44,7 +44,7 @@ parser code {:
 
 // Math Operators
 
-terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_FSLASH, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
+terminal SYM_PLUS, SYM_MINUS, SYM_STAR, SYM_DIV, SYM_BSLASH, SYM_EQUAL, SYM_LARROW, SYM_RARROW, SYM_CARET, SYM_PRCNT, LEQ, GEQ;
 
 // Logical Operators
 
@@ -108,7 +108,7 @@ top_level ::= statement:ss {:
             ;
 
 statement ::=  simple_exp:s SYM_SEMI statement {:
-                RESULT = Node(s);
+                RESULT = (Node)s;
               :}
           | //Empty Set
           ;
