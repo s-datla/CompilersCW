@@ -184,4 +184,3 @@ CharChar = [^\n\r\'\\]
 }
 //	Error Checking
 [^]						{throw new Error("Illegal Character <" + yytext() + ">");}
-

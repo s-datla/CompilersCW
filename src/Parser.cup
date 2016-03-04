@@ -74,7 +74,7 @@ terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD;
 
 /* Non terminals --------------------------------------*/
 
-nonterminal statements, statement, top_level; 
+nonterminal statement, top_level; 
 
 nonterminal type_name, aggr_type, prim_type, aggr_possible_type, signed_int, unsigned_int, FLOAT_LITERAL, RAT_LITERAL;
 
@@ -102,20 +102,10 @@ precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, SY
 // High level ---------------------------------------------------
 start with top_level; 
 
-top_level ::= statements:ss {:
+top_level ::= statement:ss {:
                 if(debug()) System.out.println((Node)ss);
               :}
             ;
-
-statements ::= statements:ss statement:s {:
-                  Node n = (Node)ss;
-                  n.addChild((Node)s);
-                  RESULT = n;
-               :}
-             | /* empty */ {:
-                  RESULT = new Node("Statements");
-               :}
-             ;
 
 statement ::=  simple_exp:s SYM_SEMI statement {:
                 RESULT = Node(s);
@@ -165,12 +155,12 @@ dict_literal  ::= SYM_LCRL SYM_RCRL
               ;
 
 dict_comma_seperation ::= return_exp SYM_COLON return_exp
-                      | dict_comma_seperation SYM_COMMA dict_comma_seperation
+                      | return_exp SYM_COLON return_exp SYM_COMMA dict_comma_seperation
                       ;
 
 element_accsr ::= IDENT SYM_LSQR return_exp SYM_RSQR
               ;
-
+              
 // Sequences ----------------------------------------------------
 
 seq_decl ::= SEQ SYM_LARROW aggr_possible_type SYM_RARROW;
