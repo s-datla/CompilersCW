@@ -109,12 +109,15 @@ start with program;
 
 program ::= main_decl ;
 
-main_decl ::= statements ;
+main_decl ::= MAIN LCRL statements RCRL SYM_SEMI
+            | statements 
+            ;
 
 statements ::=  simple_exp:s SYM_SEMI statements {:
                 RESULT = (Node)s;
               :}
-          | //Empty Set
+          | simple_exp SYM_SEMI
+          | block
           ;
 
 
