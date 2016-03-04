@@ -26,6 +26,7 @@ public class sym {
   public static final int RAT = 35;
   public static final int GEQ = 11;
   public static final int SYM_RARROW = 8;
+  public static final int IF = 37;
   public static final int MAIN = 29;
   public static final int SYM_USCORE = 28;
   public static final int SYM_OR = 12;
@@ -35,7 +36,6 @@ public class sym {
   public static final int RETURN = 44;
   public static final int SYM_PERIOD = 21;
   public static final int error = 1;
-  public static final int IFEL = 37;
   public static final int EQEQ = 14;
   public static final int SYM_LPAREN = 18;
   public static final int FDEF = 54;
@@ -105,7 +105,7 @@ public class sym {
   "INT",
   "RAT",
   "FLOAT",
-  "IFEL",
+  "IF",
   "THEN",
   "ELSE",
   "ELIF",

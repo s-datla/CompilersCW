@@ -2,303 +2,1756 @@ tests//open/n-alice.s
 line: 1 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 8 match: --s1--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 10 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 1 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 12 match: --"--
 action [55] { string.setLength(0); yybegin(STRING); }
 line: 1 col: 13 match: --Alice in Wonderland--
 action [154] { string.append(yytext()); }
 line: 1 col: 32 match: --"--
 action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
 line: 1 col: 33 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
-Syntax error at line 2, column 0Couldn't repair and continue parse at character 1 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+Syntax error at line 2, column 0
+Couldn't repair and continue parse at character 1 of input
 tests//open/n-decl.s
 line: 1 col: 1 match: --fdef--
 action [72] { return symbol(sym.FDEF); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --dict--
+action [61] { return symbol(sym.DICT); }
+line: 1 col: 10 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 1 col: 11 match: --top--
+action [68] { return symbol(sym.TOP); }
+line: 1 col: 14 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 1 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 16 match: --top--
+action [68] { return symbol(sym.TOP); }
+line: 1 col: 19 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 1 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 21 match: --invert--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 27 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 1 col: 28 match: --dict--
+action [61] { return symbol(sym.DICT); }
+line: 1 col: 32 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 1 col: 33 match: --top--
+action [68] { return symbol(sym.TOP); }
+line: 1 col: 36 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 1 col: 37 match: --top--
+action [68] { return symbol(sym.TOP); }
+line: 1 col: 40 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 1 col: 41 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 42 match: --d--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 43 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 1 col: 44 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 45 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 46 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 3 match: --dict--
+action [61] { return symbol(sym.DICT); }
+line: 2 col: 7 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 2 col: 8 match: --top--
+action [68] { return symbol(sym.TOP); }
+line: 2 col: 11 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 2 col: 12 match: --top--
+action [68] { return symbol(sym.TOP); }
+line: 2 col: 15 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 2 col: 16 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 17 match: --t--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 18 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 19 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 20 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 2 col: 21 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 2 col: 22 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 23 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 24 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 3 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 3 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 7 match: --i--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 8 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 3 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 10 match: --0--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 3 col: 11 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 12 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 3 match: --if--
+action [75] { return symbol(sym.IF); }
+line: 4 col: 5 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 4 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 7 match: --len--
+action [70] { return symbol(sym.LEN); }
+line: 4 col: 10 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 4 col: 11 match: --d--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 12 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 4 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 14 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 4 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 16 match: --0--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 4 col: 17 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 18 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 4 col: 19 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 20 match: --then--
+action [82] { return symbol(sym.THEN); }
+line: 4 col: 24 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 5 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 3 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 4 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 5 match: --while--
+action [78] { return symbol(sym.WHILE); }
+line: 5 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 11 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 5 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 13 match: --i--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 15 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 5 col: 16 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 17 match: --len--
+action [70] { return symbol(sym.LEN); }
+line: 5 col: 20 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 5 col: 21 match: --d--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 22 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 5 col: 23 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 24 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 5 col: 25 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 26 match: --do--
+action [84] { return symbol(sym.DO); }
+line: 5 col: 28 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 29 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 6 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 3 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 4 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 7 match: --t--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 8 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+line: 6 col: 9 match: --d--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 10 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+line: 6 col: 11 match: --i--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 12 match: --]--
+action [126] { return symbol(sym.SYM_RSQR); }
+Syntax error at line 6, column 11
+Couldn't repair and continue parse at character 5 of input
 tests//open/n-fib.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --fibonacci--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 11 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 2 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 13 match: --13--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 16 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+Syntax error at line 2, column 15
+Couldn't repair and continue parse at character 1 of input
 tests//open/n-funcParamTypeError0.s
 line: 1 col: 1 match: --fdef--
 action [72] { return symbol(sym.FDEF); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 1 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 10 match: --fibonacci--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 19 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 1 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 21 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 1 col: 24 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 25 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+Syntax error at line 1, column 24
+Couldn't repair and continue parse at character 0 of input
 tests//open/n-main1.s
 line: 1 col: 1 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 1 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 3 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 3, column 0Couldn't repair and continue parse at character 2 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 3 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 7 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 8 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 10 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 3 col: 11 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 12 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 5 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 3 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 4 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 8 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 6 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 7 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 7 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 3 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+Syntax error at line 7, column 2
+Couldn't repair and continue parse at character 6 of input
 tests//open/n-multiple-assignment.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 8 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 3 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 2 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 7 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 8 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 10 match: --5--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 11 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 12 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 3 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 3 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 7 match: --y--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 8 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 9 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 3 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 4 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 7 match: --z--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 8 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 4 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 10 match: --7--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 4 col: 11 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 12 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 5 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 3 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 4 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 5 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 5 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 7 match: --y--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 8 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 9 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 5 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 11 match: --z--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 12 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+Syntax error at line 5, column 11
+Couldn't repair and continue parse at character 4 of input
 tests//open/n-nestedTypeDef0.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --dict--
+action [61] { return symbol(sym.DICT); }
+line: 2 col: 6 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 2 col: 7 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 2 col: 10 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 2 col: 11 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 2 col: 14 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 2 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 16 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+Syntax error at line 2, column 15
+Couldn't repair and continue parse at character 1 of input
 tests//open/n-no-main.s
 line: 1 col: 1 match: --alias--
 action [73] { return symbol(sym.ALIAS); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 7 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 1 col: 10 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 1 col: 11 match: --char--
+action [63] { return symbol(sym.CHAR); }
+line: 1 col: 15 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 1 col: 16 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 17 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 23 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 1 col: 24 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --fdef--
+action [72] { return symbol(sym.FDEF); }
+line: 3 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 6 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 3 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 10 match: --fred--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 15 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 3 col: 16 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 22 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 23 match: --s--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 24 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 3 col: 25 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 26 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 3 col: 29 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 30 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 31 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 3 col: 32 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 33 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 3 col: 34 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 3 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 10 match: --key--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 13 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 4 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 15 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 4 col: 16 match: --ic--
+action [154] { string.append(yytext()); }
+line: 4 col: 18 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 4 col: 19 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 21 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 22 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 5 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 3 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 5 col: 6 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 5 col: 7 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 13 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 5 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 15 match: --books--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 20 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 5 col: 21 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 22 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+Syntax error at line 5, column 21
+Couldn't repair and continue parse at character 4 of input
 tests//open/p-adt.s
 line: 1 col: 1 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 1 match: --tdef--
 action [71] { return symbol(sym.TDEF); }
-Syntax error at line 2, column 0Couldn't repair and continue parse at character 1 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 2 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 6 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 13 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 2 col: 14 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 21 match: --name--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 25 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 2 col: 26 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 27 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 33 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 34 match: --surname--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 41 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 2 col: 42 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 43 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 2 col: 46 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 47 match: --age--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 50 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 2 col: 51 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 52 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 53 match: --# person fdefinition\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: --tdef--
+action [71] { return symbol(sym.TDEF); }
+line: 4 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 6 match: --family--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 13 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 4 col: 14 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 21 match: --mother--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 27 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 4 col: 28 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 29 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 35 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 36 match: --father--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 42 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 4 col: 43 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 44 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 4 col: 47 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 4 col: 48 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 54 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 4 col: 55 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 56 match: --children--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 64 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 4 col: 65 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 66 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 67 match: --# family fdefinition\u000A--
+action [145] { /* Don't do anything */ }
+line: 5 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 6 col: 1 match: --main--
+action [60] { return symbol(sym.MAIN); }
+line: 6 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 6 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 7 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 8 col: 1 match: --# here we generate\u000A--
+action [145] { /* Don't do anything */ }
+line: 9 col: 1 match: --/# a family #/--
+action [145] { /* Don't do anything */ }
+line: 9 col: 15 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 10 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 11 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 11 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 11 col: 3 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 11 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 11 col: 10 match: --m--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 11 col: 11 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 11 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 11 col: 13 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 11 col: 14 match: --aaaaAAA--
+action [154] { string.append(yytext()); }
+line: 11 col: 21 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 11 col: 22 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 11 col: 23 match: -- --
+action [145] { /* Don't do anything */ }
+line: 11 col: 24 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 11 col: 25 match: --bbBB0_i--
+action [154] { string.append(yytext()); }
+line: 11 col: 32 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 11 col: 33 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 11 col: 34 match: -- --
+action [145] { /* Don't do anything */ }
+line: 11 col: 35 match: --40--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 11 col: 37 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 11 col: 38 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 12 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 12 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 12 col: 3 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 12 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 12 col: 10 match: --p--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 12 col: 11 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 12 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 12 col: 13 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 12 col: 14 match: --aaabAAA--
+action [154] { string.append(yytext()); }
+line: 12 col: 21 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 12 col: 22 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 12 col: 23 match: -- --
+action [145] { /* Don't do anything */ }
+line: 12 col: 24 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 12 col: 25 match: --bbBB0_i--
+action [154] { string.append(yytext()); }
+line: 12 col: 32 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 12 col: 33 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 12 col: 34 match: -- --
+action [145] { /* Don't do anything */ }
+line: 12 col: 35 match: --35--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 12 col: 37 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 12 col: 38 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 13 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 13 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 13 col: 3 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 13 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 13 col: 10 match: --c1--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 13 col: 12 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 13 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 13 col: 14 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 13 col: 15 match: --aaabAAA--
+action [154] { string.append(yytext()); }
+line: 13 col: 22 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 13 col: 23 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 13 col: 24 match: -- --
+action [145] { /* Don't do anything */ }
+line: 13 col: 25 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 13 col: 26 match: --bbBB0_i--
+action [154] { string.append(yytext()); }
+line: 13 col: 33 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 13 col: 34 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 13 col: 35 match: -- --
+action [145] { /* Don't do anything */ }
+line: 13 col: 36 match: --1--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 13 col: 37 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 13 col: 38 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 14 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 14 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 14 col: 3 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 14 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 14 col: 10 match: --c2--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 14 col: 12 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 14 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 14 col: 14 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 14 col: 15 match: --aaadAAA--
+action [154] { string.append(yytext()); }
+line: 14 col: 22 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 14 col: 23 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 14 col: 24 match: -- --
+action [145] { /* Don't do anything */ }
+line: 14 col: 25 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 14 col: 26 match: --bbBB0_i--
+action [154] { string.append(yytext()); }
+line: 14 col: 33 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 14 col: 34 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 14 col: 35 match: -- --
+action [145] { /* Don't do anything */ }
+line: 14 col: 36 match: --2--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 14 col: 37 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 14 col: 38 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 15 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 15 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 15 col: 3 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 15 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 15 col: 10 match: --c3--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 15 col: 12 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 15 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 15 col: 14 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 15 col: 15 match: --aaaeAAA--
+action [154] { string.append(yytext()); }
+line: 15 col: 22 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 15 col: 23 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 15 col: 24 match: -- --
+action [145] { /* Don't do anything */ }
+line: 15 col: 25 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 15 col: 26 match: --bbBB0_i--
+action [154] { string.append(yytext()); }
+line: 15 col: 33 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 15 col: 34 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 15 col: 35 match: -- --
+action [145] { /* Don't do anything */ }
+line: 15 col: 36 match: --3--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 15 col: 37 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 15 col: 38 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 16 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 17 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 17 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 17 col: 3 match: --family--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 17 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 17 col: 10 match: --f--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 17 col: 11 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 17 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 17 col: 13 match: --m--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 17 col: 14 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 17 col: 15 match: --p--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 17 col: 16 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 17 col: 17 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+line: 17 col: 18 match: --c1--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 17 col: 20 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 17 col: 21 match: --c2--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 17 col: 23 match: --]--
+action [126] { return symbol(sym.SYM_RSQR); }
+Syntax error at line 17, column 22
+Couldn't repair and continue parse at character 16 of input
 tests//open/p-alice.s
 line: 1 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 8 match: --s1--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 10 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 1 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 12 match: --"--
 action [55] { string.setLength(0); yybegin(STRING); }
 line: 1 col: 13 match: --Alice in Wonderland--
 action [154] { string.append(yytext()); }
 line: 1 col: 32 match: --"--
 action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
 line: 1 col: 33 match: --;--
 action [122] { return symbol(sym.SYM_SEMI); }
 line: 1 col: 34 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 2 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 8 match: --s2--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 2 col: 10 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 2 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 12 match: --"--
 action [55] { string.setLength(0); yybegin(STRING); }
 line: 2 col: 13 match: --Gilgamesh--
 action [154] { string.append(yytext()); }
 line: 2 col: 22 match: --"--
 action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
 line: 2 col: 23 match: --;--
 action [122] { return symbol(sym.SYM_SEMI); }
 line: 2 col: 24 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 3 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 3 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 3 col: 8 match: --s3--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 3 col: 10 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 3 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 3 col: 12 match: --"--
 action [55] { string.setLength(0); yybegin(STRING); }
 line: 3 col: 13 match: --One Thousand and One Nights--
 action [154] { string.append(yytext()); }
 line: 3 col: 40 match: --"--
 action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
 line: 3 col: 41 match: --;--
 action [122] { return symbol(sym.SYM_SEMI); }
 line: 3 col: 42 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 4 col: 1 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 5 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 5, column 0Couldn't repair and continue parse at character 4 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 5 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 5 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 6 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 3 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 10 match: --key--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 13 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 6 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 15 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 6 col: 16 match: --ic--
+action [154] { string.append(yytext()); }
+line: 6 col: 18 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 6 col: 19 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 6 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 21 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 22 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 7 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 3 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 7 col: 6 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 7 col: 7 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 7 col: 13 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 7 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 15 match: --books--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 7 col: 20 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 7 col: 21 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 22 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+Syntax error at line 7, column 21
+Couldn't repair and continue parse at character 6 of input
 tests//open/p-elif.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 3 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 10 match: --foo--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 14 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 16 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 2 col: 17 match: --zork--
+action [154] { string.append(yytext()); }
+line: 2 col: 21 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 2 col: 22 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 23 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 3 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 10 match: --bar--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 14 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 3 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 16 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 3 col: 17 match: --bork--
+action [154] { string.append(yytext()); }
+line: 3 col: 21 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 3 col: 22 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 23 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 3 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 4 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 7 match: --baz--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 11 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 14 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 4 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 16 match: --27--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 4 col: 18 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 19 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 5 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 6 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 3 match: --if--
+action [75] { return symbol(sym.IF); }
+line: 6 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 6 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 6 col: 7 match: --foo--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 11 match: --==--
+action [107] { return symbol(sym.EQEQ); }
+line: 6 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 14 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 6 col: 15 match: --qux--
+action [154] { string.append(yytext()); }
+line: 6 col: 18 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 6 col: 19 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 6 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 21 match: --then--
+action [82] { return symbol(sym.THEN); }
+line: 6 col: 25 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 7 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 3 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 4 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 5 match: --print--
+action [81] { return symbol(sym.PRINT); }
+line: 7 col: 10 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 7 col: 11 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 7 col: 12 match: --Not this branch...--
+action [154] { string.append(yytext()); }
+line: 7 col: 30 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 7 col: 31 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 7 col: 32 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+Syntax error at line 7, column 31
+Couldn't repair and continue parse at character 6 of input
 tests//open/p-emptyDict.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --dict--
+action [61] { return symbol(sym.DICT); }
+line: 2 col: 6 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 2 col: 7 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 2 col: 10 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 2 col: 11 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 2 col: 14 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 2 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 16 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 17 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 18 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 19 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 20 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 2 col: 21 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 22 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 2 col: 23 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 24 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 3 col: 8 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 9 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 4 col: 2 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 3 match: --\u000A--
+action [145] { /* Don't do anything */ }
+parsing successful
 tests//open/p-emptySeq.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 2 col: 5 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 2 col: 6 match: --char--
+action [63] { return symbol(sym.CHAR); }
+line: 2 col: 10 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 2 col: 11 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 12 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 14 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 16 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+line: 2 col: 17 match: --]--
+action [126] { return symbol(sym.SYM_RSQR); }
+Syntax error at line 2, column 16
+Couldn't repair and continue parse at character 1 of input
 tests//open/p-fib.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --fibonacci--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 11 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 2 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 13 match: --13--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 16 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+Syntax error at line 2, column 15
+Couldn't repair and continue parse at character 1 of input
 tests//open/p-fp0.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --float--
+action [67] { return symbol(sym.FLOAT); }
+line: 2 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 8 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 10 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 11 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 12 match: --3--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 13 match: --.--
+action [120] { return symbol(sym.SYM_PERIOD); }
+line: 2 col: 14 match: --0--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 15 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 16 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 3 col: 8 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 9 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 4 col: 2 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 3 match: --\u000A--
+action [145] { /* Don't do anything */ }
+parsing successful
 tests//open/p-function0.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 3 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 3 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 7 match: --s1--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 9 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 3 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 11 match: --sum--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 14 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 3 col: 15 match: -----
+action [92] { return symbol(sym.SYM_MINUS); }
+line: 3 col: 16 match: --10--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 3 col: 18 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 3 col: 19 match: --20--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 3 col: 21 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+Syntax error at line 3, column 20
+Couldn't repair and continue parse at character 2 of input
 tests//open/p-ifthenelse0.s
 line: 1 col: 1 match: --fdef--
 action [72] { return symbol(sym.FDEF); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --void--
+action [74] { return symbol(sym.VOID); }
+line: 1 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 11 match: --foo--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 14 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 1 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 16 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 1 col: 19 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 20 match: --pos--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 23 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 24 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 1 col: 25 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 26 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 27 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 28 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --if--
+action [75] { return symbol(sym.IF); }
+line: 2 col: 4 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 5 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 2 col: 6 match: --pos--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 10 match: --==--
+action [107] { return symbol(sym.EQEQ); }
+line: 2 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 13 match: -----
+action [92] { return symbol(sym.SYM_MINUS); }
+line: 2 col: 14 match: --1--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 15 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 2 col: 16 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 17 match: --then--
+action [82] { return symbol(sym.THEN); }
+line: 2 col: 21 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 3 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 3 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 10 match: --0--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+Syntax error at line 3, column 9
+Couldn't repair and continue parse at character 2 of input
 tests//open/p-ifthenelse1.s
 line: 1 col: 1 match: --fdef--
 action [72] { return symbol(sym.FDEF); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --void--
+action [74] { return symbol(sym.VOID); }
+line: 1 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 11 match: --foo--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 14 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 1 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 16 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 1 col: 19 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 20 match: --pos--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 1 col: 23 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 24 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 1 col: 25 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 26 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 27 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 28 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --if--
+action [75] { return symbol(sym.IF); }
+line: 2 col: 4 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 5 match: --(--
+action [117] { return symbol(sym.SYM_LPAREN); }
+line: 2 col: 6 match: --pos--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 10 match: --==--
+action [107] { return symbol(sym.EQEQ); }
+line: 2 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 13 match: -----
+action [92] { return symbol(sym.SYM_MINUS); }
+line: 2 col: 14 match: --1--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 15 match: --)--
+action [118] { return symbol(sym.SYM_RPAREN); }
+line: 2 col: 16 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 17 match: --then--
+action [82] { return symbol(sym.THEN); }
+line: 2 col: 21 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 3 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 3 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 10 match: --0--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+Syntax error at line 3, column 9
+Couldn't repair and continue parse at character 2 of input
 tests//open/p-main.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 8 match: --print--
+action [81] { return symbol(sym.PRINT); }
+line: 1 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 14 match: --0--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 1 col: 15 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+Syntax error at line 1, column 14
+Couldn't repair and continue parse at character 0 of input
 tests//open/p-rat0.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --rat--
+action [66] { return symbol(sym.RAT); }
+line: 2 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 6 match: --x--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 8 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 10 match: --2--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 11 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 12 match: --/--
+action [94] { return symbol(sym.SYM_DIV); }
+line: 2 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 14 match: --3--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 15 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 16 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 3 col: 8 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 9 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 4 col: 2 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 3 match: --\u000A--
+action [145] { /* Don't do anything */ }
+parsing successful
 tests//open/p-return0.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 8 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 3 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 2 col: 9 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 10 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 3 col: 2 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 3 match: --\u000A--
+action [145] { /* Don't do anything */ }
+parsing successful
 tests//open/p-return1.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 8 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 3 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 2 col: 9 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 10 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 3 col: 2 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 3 match: --\u000A--
+action [145] { /* Don't do anything */ }
+parsing successful
 tests//open/p-reverse.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 2 col: 5 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 2 col: 6 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 2 col: 9 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 2 col: 10 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 11 match: --a--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 13 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 2 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 15 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+line: 2 col: 16 match: --1--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 17 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 2 col: 18 match: --2--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 19 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 2 col: 20 match: --3--
+action [144] { return symbol(sym.INT_LITERAL,yytext()); }
+line: 2 col: 21 match: --]--
+action [126] { return symbol(sym.SYM_RSQR); }
+Syntax error at line 2, column 20
+Couldn't repair and continue parse at character 1 of input
 tests//open/p-sequences.s
 line: 1 col: 1 match: --seq--
 action [62] { return symbol(sym.SEQ); }
@@ -309,256 +1762,307 @@ action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 11 match: -->--
 action [97] { return symbol(sym.SYM_RARROW); }
 line: 1 col: 12 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 13 match: --l1--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 15 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 1 col: 16 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 17 match: --[--
 action [125] { return symbol(sym.SYM_LSQR); }
-line: 1 col: 18 match: --"--
-action [55] { string.setLength(0); yybegin(STRING); }
-line: 1 col: 19 match: --a--
-action [154] { string.append(yytext()); }
-line: 1 col: 20 match: --"--
-action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-line: 1 col: 21 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 1 col: 22 match: --"--
-action [55] { string.setLength(0); yybegin(STRING); }
-line: 1 col: 23 match: --b--
-action [154] { string.append(yytext()); }
-line: 1 col: 24 match: --"--
-action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-line: 1 col: 25 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 1 col: 26 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 1 col: 27 match: --"--
-action [55] { string.setLength(0); yybegin(STRING); }
-line: 1 col: 28 match: --c--
-action [154] { string.append(yytext()); }
-line: 1 col: 29 match: --"--
-action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-line: 1 col: 30 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 1 col: 31 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 1 col: 32 match: --"--
-action [55] { string.setLength(0); yybegin(STRING); }
-line: 1 col: 33 match: --d--
-action [154] { string.append(yytext()); }
-line: 1 col: 34 match: --"--
-action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-line: 1 col: 35 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 1 col: 36 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 1 col: 37 match: --"--
-action [55] { string.setLength(0); yybegin(STRING); }
-line: 1 col: 38 match: --e--
-action [154] { string.append(yytext()); }
-line: 1 col: 39 match: --"--
-action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-line: 1 col: 40 match: --]--
-action [126] { return symbol(sym.SYM_RSQR); }
-line: 1 col: 41 match: --;--
-action [122] { return symbol(sym.SYM_SEMI); }
-line: 1 col: 42 match: --\u000A--
-action [145] { /*	Don't do anything */ }
-line: 2 col: 1 match: --seq--
-action [62] { return symbol(sym.SEQ); }
-line: 2 col: 4 match: --<--
-action [95] { return symbol(sym.SYM_LARROW); }
-line: 2 col: 5 match: --top--
-action [68] { return symbol(sym.TOP); }
-line: 2 col: 8 match: -->--
-action [97] { return symbol(sym.SYM_RARROW); }
-line: 2 col: 9 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 2 col: 10 match: --l2--
-action [143] { return symbol(sym.IDENT,yytext()); }
-line: 2 col: 12 match: --=--
-action [96] { return symbol(sym.SYM_EQUAL); }
-line: 2 col: 13 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 2 col: 14 match: --[--
-action [125] { return symbol(sym.SYM_LSQR); }
-line: 2 col: 15 match: --1--
-action [144] { return symbol(sym.INT_LITERAL,new Integer(yytext())); }
-line: 2 col: 16 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 2 col: 17 match: --2--
-action [144] { return symbol(sym.INT_LITERAL,new Integer(yytext())); }
-line: 2 col: 18 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 2 col: 19 match: --3--
-action [144] { return symbol(sym.INT_LITERAL,new Integer(yytext())); }
-line: 2 col: 20 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 2 col: 21 match: --4--
-action [144] { return symbol(sym.INT_LITERAL,new Integer(yytext())); }
-line: 2 col: 22 match: --,--
-action [119] { return symbol(sym.SYM_COMMA); }
-line: 2 col: 23 match: --5--
-action [144] { return symbol(sym.INT_LITERAL,new Integer(yytext())); }
-line: 2 col: 24 match: --]--
-action [126] { return symbol(sym.SYM_RSQR); }
-line: 2 col: 25 match: --;--
-action [122] { return symbol(sym.SYM_SEMI); }
-line: 2 col: 26 match: --\u000A--
-action [145] { /*	Don't do anything */ }
-line: 3 col: 1 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 3 col: 2 match: --\u000A--
-action [145] { /*	Don't do anything */ }
-line: 4 col: 1 match: --string--
-action [143] { return symbol(sym.IDENT,yytext()); }
-line: 4 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 4 col: 8 match: --s1--
-action [143] { return symbol(sym.IDENT,yytext()); }
-line: 4 col: 10 match: --=--
-action [96] { return symbol(sym.SYM_EQUAL); }
-line: 4 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 4 col: 12 match: --"--
-action [55] { string.setLength(0); yybegin(STRING); }
-line: 4 col: 13 match: --"--
-action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-line: 4 col: 14 match: --;--
-action [122] { return symbol(sym.SYM_SEMI); }
-line: 4 col: 15 match: --\u000A--
-action [145] { /*	Don't do anything */ }
-line: 5 col: 1 match: --string--
-action [143] { return symbol(sym.IDENT,yytext()); }
-line: 5 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 5 col: 8 match: --s2--
-action [143] { return symbol(sym.IDENT,yytext()); }
-line: 5 col: 10 match: --=--
-action [96] { return symbol(sym.SYM_EQUAL); }
-line: 5 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
-line: 5 col: 12 match: --"--
-action [55] { string.setLength(0); yybegin(STRING); }
-line: 5 col: 13 match: --hello--
-action [154] { string.append(yytext()); }
-line: 5 col: 18 match: --"--
-action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
-line: 5 col: 19 match: --;--
-action [122] { return symbol(sym.SYM_SEMI); }
-line: 5 col: 20 match: --\u000A--
-action [145] { /*	Don't do anything */ }
-line: 6 col: 1 match: --\u000A--
-action [145] { /*	Don't do anything */ }
-line: 7 col: 1 match: --main--
-action [60] { return symbol(sym.MAIN); }
-Syntax error at line 7, column 0Couldn't repair and continue parse at character 6 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+Syntax error at line 1, column 16
+Couldn't repair and continue parse at character 0 of input
 tests//open/p-tdef0.s
 line: 1 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 1, column 0Couldn't repair and continue parse at character 0 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 1 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 1 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 1 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 2 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 2 col: 2 match: --alias--
+action [73] { return symbol(sym.ALIAS); }
+line: 2 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 8 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 2 col: 11 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 2 col: 12 match: --char--
+action [63] { return symbol(sym.CHAR); }
+line: 2 col: 16 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 2 col: 17 match: -- --
+action [145] { /* Don't do anything */ }
+line: 2 col: 18 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 2 col: 24 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 2 col: 25 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 3 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 3 col: 2 match: --alias--
+action [73] { return symbol(sym.ALIAS); }
+line: 3 col: 7 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 8 match: --fred--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 12 match: -- --
+action [145] { /* Don't do anything */ }
+line: 3 col: 13 match: --spud--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 3 col: 17 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 3 col: 18 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 4 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 4 col: 2 match: --tdef--
+action [71] { return symbol(sym.TDEF); }
+line: 4 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 7 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 14 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 4 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 16 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 22 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 23 match: --name--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 27 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 4 col: 28 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 29 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 35 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 36 match: --surname--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 43 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 4 col: 44 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 45 match: --int--
+action [65] { return symbol(sym.INT); }
+line: 4 col: 48 match: -- --
+action [145] { /* Don't do anything */ }
+line: 4 col: 49 match: --age--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 4 col: 52 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 4 col: 53 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 4 col: 54 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 5 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 5 col: 2 match: --tdef--
+action [71] { return symbol(sym.TDEF); }
+line: 5 col: 6 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 7 match: --family--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 13 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 14 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 5 col: 15 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 16 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 22 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 23 match: --mother--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 29 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 5 col: 30 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 31 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 37 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 38 match: --father--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 44 match: --,--
+action [119] { return symbol(sym.SYM_COMMA); }
+line: 5 col: 45 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 46 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 5 col: 49 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 5 col: 50 match: --person--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 56 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 5 col: 57 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 58 match: --children--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 5 col: 66 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 67 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 5 col: 68 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 5 col: 69 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 6 col: 1 match: --\u0009--
+action [145] { /* Don't do anything */ }
+line: 6 col: 2 match: --return--
+action [86] { return symbol(sym.RETURN); }
+line: 6 col: 8 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 6 col: 9 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 7 col: 1 match: --}--
+action [128] { return symbol(sym.SYM_RCRL); }
+line: 7 col: 2 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 7 col: 3 match: --\u000A--
+action [145] { /* Don't do anything */ }
+parsing successful
 tests//open/p-while.s
 line: 1 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 8 match: --s1--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 1 col: 10 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 1 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 1 col: 12 match: --"--
 action [55] { string.setLength(0); yybegin(STRING); }
 line: 1 col: 13 match: --Alice in Wonderland--
 action [154] { string.append(yytext()); }
 line: 1 col: 32 match: --"--
 action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
 line: 1 col: 33 match: --;--
 action [122] { return symbol(sym.SYM_SEMI); }
 line: 1 col: 34 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 2 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 8 match: --s2--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 2 col: 10 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 2 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 2 col: 12 match: --"--
 action [55] { string.setLength(0); yybegin(STRING); }
 line: 2 col: 13 match: --Gilgamesh--
 action [154] { string.append(yytext()); }
 line: 2 col: 22 match: --"--
 action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
 line: 2 col: 23 match: --;--
 action [122] { return symbol(sym.SYM_SEMI); }
 line: 2 col: 24 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 3 col: 1 match: --string--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 3 col: 7 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 3 col: 8 match: --s3--
 action [143] { return symbol(sym.IDENT,yytext()); }
 line: 3 col: 10 match: --=--
 action [96] { return symbol(sym.SYM_EQUAL); }
 line: 3 col: 11 match: -- --
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 3 col: 12 match: --"--
 action [55] { string.setLength(0); yybegin(STRING); }
 line: 3 col: 13 match: --One Thousand and One Nights--
 action [154] { string.append(yytext()); }
 line: 3 col: 40 match: --"--
 action [151] { yybegin(YYINITIAL);
-							return symbol(sym.STRING_LITERAL,
-							string.toString()); }
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
 line: 3 col: 41 match: --;--
 action [122] { return symbol(sym.SYM_SEMI); }
 line: 3 col: 42 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 4 col: 1 match: --\u000A--
-action [145] { /*	Don't do anything */ }
+action [145] { /* Don't do anything */ }
 line: 5 col: 1 match: --main--
 action [60] { return symbol(sym.MAIN); }
-Syntax error at line 5, column 0Couldn't repair and continue parse at character 4 of input
-java.lang.Exception: Can't recover from previous error(s)
-	at java_cup.runtime.lr_parser.report_fatal_error(lr_parser.java:392)
-	at java_cup.runtime.lr_parser.unrecovered_syntax_error(lr_parser.java:539)
-	at java_cup.runtime.lr_parser.parse(lr_parser.java:731)
-	at SC.main(SC.java:15)
+line: 5 col: 5 match: -- --
+action [145] { /* Don't do anything */ }
+line: 5 col: 6 match: --{--
+action [127] { return symbol(sym.SYM_LCRL); }
+line: 5 col: 7 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 6 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 3 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 9 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 10 match: --key--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 6 col: 13 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 6 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 15 match: --"--
+action [55] { string.setLength(0); yybegin(STRING); }
+line: 6 col: 16 match: --ic--
+action [154] { string.append(yytext()); }
+line: 6 col: 18 match: --"--
+action [151] { yybegin(YYINITIAL);
+                            return symbol(sym.STRING_LITERAL,
+                            string.toString()); }
+line: 6 col: 19 match: --;--
+action [122] { return symbol(sym.SYM_SEMI); }
+line: 6 col: 20 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 21 match: -- --
+action [145] { /* Don't do anything */ }
+line: 6 col: 22 match: --\u000A--
+action [145] { /* Don't do anything */ }
+line: 7 col: 1 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 2 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 3 match: --seq--
+action [62] { return symbol(sym.SEQ); }
+line: 7 col: 6 match: --<--
+action [95] { return symbol(sym.SYM_LARROW); }
+line: 7 col: 7 match: --string--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 7 col: 13 match: -->--
+action [97] { return symbol(sym.SYM_RARROW); }
+line: 7 col: 14 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 15 match: --books--
+action [143] { return symbol(sym.IDENT,yytext()); }
+line: 7 col: 20 match: --=--
+action [96] { return symbol(sym.SYM_EQUAL); }
+line: 7 col: 21 match: -- --
+action [145] { /* Don't do anything */ }
+line: 7 col: 22 match: --[--
+action [125] { return symbol(sym.SYM_LSQR); }
+Syntax error at line 7, column 21
+Couldn't repair and continue parse at character 6 of input

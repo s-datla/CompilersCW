@@ -3,41 +3,19 @@ import java.util.ArrayList;
 
 scan with {: return lexer.next_token(); :};
 parser code {:
-  private boolean debug = true;
-  public boolean  debug()         {return debug;}
-  public void     debug(boolean b){debug = b;}
-  static class Node {
-    public ArrayList<Node> children;
-    private static int globalCounter = 0;
-    public int counter;
-    private Object value;
-    public Node(Object value){
-      Node.globalCounter += 1;
-      this.counter = Node.globalCounter;
-      this.value = value;
-      this.children = new ArrayList<Node>();
-    }
-    public void addChild(Node n){ children.add(n); }
-    public String toString(){
-      String ret = "";
-      ret += String.format("%d [label=\"%s\"];\n",
-                            counter, value.toString());
-      for(Node n: children){
-        ret += String.format("%d -> %d;\n", this.counter, n.counter);
-        ret += n.toString();
-      }
-      return ret;
-    }
-  }
+  public boolean syntaxErrors = false;
+
   private Lexer lexer;
   public Parser(Lexer lex) {
     super(lex);
     lexer = lex;
-  }
-  public void syntax_error(Symbol current_token) { report_error(
-         "Syntax error at line " + (current_token.left+1) + ", column "
-  + current_token.right, null );
   } 
+
+  public void syntax_error(Symbol current_token) {
+    this.syntaxErrors = true;
+    report_error("Syntax error at line " + (current_token.left+1) + ", column " + current_token.right + "\n", null);
+  }
+
 :};
 
 /* Terminals (Returned By Lexer). -----------------------*/
@@ -54,6 +32,7 @@ terminal SYM_OR, SYM_AND, EQEQ, NOTEQ, CONCAT;
 
 terminal SYM_EXCLPNT, SYM_LPAREN, SYM_RPAREN, SYM_COMMA, SYM_PERIOD, SYM_COLON, SYM_SEMI, SYM_LSQR, SYM_RSQR, SYM_LCRL, SYM_RCRL, SYM_USCORE;
 
+
 // TYPES 
 
 terminal MAIN, DICT, SEQ, CHAR, BOOL, INT, RAT, FLOAT;
@@ -61,7 +40,7 @@ terminal MAIN, DICT, SEQ, CHAR, BOOL, INT, RAT, FLOAT;
 
 // Flow Control
 
-terminal IFEL, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
+terminal IF, THEN, ELSE, ELIF, WHILE, FORALL, DO, RETURN;
 
 // Literals
 
@@ -73,242 +52,293 @@ terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD;
 
 
 /* Non terminals --------------------------------------*/
+nonterminal program, main_func, program_content, exp;
+nonterminal statement, print_decl, read_decl, logic_decl, func_call; 
 
-nonterminal statement, top_level; 
+nonterminal  assign_decl, type_decl, func_decl, alias_decl; 
 
-nonterminal type_name, aggr_type, prim_type, aggr_possible_type, signed_int, unsigned_int;
+nonterminal  number, sub_ident, len_decl, list, simple_exp; 
 
-nonterminal dict_decl, dict_literal, dict_comma_seperation, element_accsr;
+nonterminal ident_list, ident_list_set , ident_syn;
 
-nonterminal seq_decl, seq_comma_seperated, seq_literal, seq_splicing, len_expr, in_expr;
+nonterminal splice_syn, splice_syn_set, bin_op, conditionals; 
 
-nonterminal tdef_decl, fdef_decl, declaration_list, alias_decl;
+nonterminal integer, float, rat, type_def , prim_type, aggr_type; 
 
-nonterminal assignment, io_calls, accessor, function_call, if_else, while_do, for_all, block, stat, stat_part, stat_list, declarations, decl_list, return;
+nonterminal condition, concat_decl, cons_decl, cons_list_syntax, cons_list_seg, concat_list_syntax, conditions, declaration_list; 
 
-nonterminal decl, simple_exp, return_exp, aggr_literal, literal, operations;
+nonterminal declaration_list_syntax, declaration_list_seg;
 
-nonterminal FLOAT_LITERAL, RAT_LITERAL;
+nonterminal list_container, seq_list, seq_decl, dict_list, dict_list_syntax, dict_list_seg, for_all, if_decl, else_if_decl, else_decl, while, list_decl, dict_decl;
 
-nonterminal program, main_decl, statements; 
+nonterminal main_statements, statements;
 
-/* Precedences ----------------------*/
+nonterminal return_decl;
 
-precedence left SYM_PLUS, SYM_MINUS, SYM_AND, SYM_OR, SYM_LPAREN, SYM_RPAREN, SYM_LSQR , SYM_RSQR;
-precedence left SYM_STAR, SYM_DIV;
-precedence right SYM_CARET;
-precedence nonassoc NOTEQ, GEQ, LEQ, EQEQ, SYM_LARROW, SYM_RARROW, SYM_EQUAL, CONCAT; 
+precedence left SYM_PERIOD, IN, SYM_COLON, SYM_AND, SYM_OR, CONCAT;
 
+precedence left SYM_CARET, SYM_DIV, SYM_STAR, SYM_PLUS, SYM_MINUS;
 
+precedence left SYM_LPAREN, SYM_RPAREN;
 
+start with program;
 
-/* The grammar ----------------------*/
-
-// High level ---------------------------------------------------
-start with program; 
-
-program ::= main_decl ;
-
-main_decl ::= MAIN LCRL statements RCRL SYM_SEMI
-            | statements 
-            ;
-
-statements ::=  simple_exp:s SYM_SEMI statements {:
-                RESULT = (Node)s;
-              :}
-          | simple_exp SYM_SEMI
-          | block
+program ::= main_func
+        | main_func program_content
+        | program_content main_func
+        | program_content main_func program_content
+        ;
+// program_content is anything outside main{}
+program_content ::= program_content exp
+                | exp
+                ;
+statement ::= exp
+          | print_decl
+          | read_decl
+          | logic_decl
+          | RETURN SYM_SEMI
+          | RETURN exp SYM_SEMI
+          | func_call SYM_SEMI
           ;
 
 
-//  Type definitions --------------------------------------------
+main_statements ::= statements statement ;
 
-type_name ::= aggr_type | prim_type
-          ; 
 
-aggr_type ::= dict_decl:i {: RESULT = new Node(i); :}
-          | seq_decl :i {: RESULT = new Node(i); :}
-          ;
+statements ::= statements statement | ; 
 
-prim_type ::= BOOL:i {: RESULT = new Node(i); :}
-          | CHAR:i {: RESULT = new Node(i); :}
-          | FLOAT:i {: RESULT = new Node(i); :}
-          | INT:i {: RESULT = new Node(i); :}
-          | RAT:i {: RESULT = new Node(i); :}
-          ;
+exp ::= assign_decl SYM_SEMI
+      | type_decl SYM_SEMI
+      | func_decl SYM_SEMI
+      | alias_decl SYM_SEMI
+      ;
 
-aggr_possible_type  ::= type_name 
-                    | TOP
-                    | IDENT 
-                    ;
 
-// Float + Rational handling 
-signed_int ::= SYM_MINUS:m INT_LITERAL;
-unsigned_int ::= INT_LITERAL;
-FLOAT_LITERAL ::= signed_int:i1 SYM_PERIOD:p unsigned_int:i2
-              | unsigned_int:i1 SYM_PERIOD:p unsigned_int:i2
-              ;
-RAT_LITERAL ::= signed_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
-            | unsigned_int:i1 SYM_USCORE:u unsigned_int:i2 SYM_DIV:d unsigned_int:i3
-            ;
+main_func ::= MAIN SYM_LCRL main_statements SYM_RCRL SYM_SEMI;
 
-// Dictionary ---------------------------------------------------
+func_decl ::= FDEF return_decl IDENT SYM_LPAREN declaration_list SYM_RPAREN SYM_LCRL statements SYM_RCRL; 
 
-dict_decl ::= DICT SYM_LARROW aggr_possible_type SYM_COMMA aggr_possible_type SYM_RARROW
-          ; 
+integer ::= INT_LITERAL | SYM_MINUS INT_LITERAL;
 
-dict_literal  ::= SYM_LCRL SYM_RCRL
-              | SYM_LCRL dict_comma_seperation SYM_RCRL
-              ;
+float ::= INT_LITERAL SYM_PERIOD INT_LITERAL 
+      | SYM_MINUS INT_LITERAL SYM_PERIOD INT_LITERAL 
+      ;
 
-dict_comma_seperation ::= return_exp SYM_COLON return_exp
-                      | return_exp SYM_COLON return_exp SYM_COMMA dict_comma_seperation
-                      ;
+rat ::= INT_LITERAL SYM_DIV INT_LITERAL 
+      | INT_LITERAL SYM_USCORE INT_LITERAL SYM_DIV INT_LITERAL;
 
-element_accsr ::= IDENT SYM_LSQR return_exp SYM_RSQR
-              ;
-
-// Sequences ----------------------------------------------------
-
-seq_decl ::= SEQ SYM_LARROW aggr_possible_type SYM_RARROW;
-
-seq_comma_seperated ::= return_exp SYM_COMMA seq_comma_seperated
-                    | return_exp 
-                    | /*empty sequence*/
-                    ;
-
-seq_literal ::= SYM_LSQR seq_comma_seperated SYM_RSQR 
-            | SYM_LSQR SYM_RSQR 
-            ; 
-
-seq_splicing  ::= IDENT SYM_LSQR return_exp SYM_COLON return_exp SYM_RSQR 
-              | IDENT SYM_LSQR SYM_COLON return_exp SYM_RSQR 
-              | IDENT SYM_LSQR return_exp SYM_COLON SYM_RSQR 
-              ;
-
-len_expr ::= LEN SYM_LPAREN IDENT SYM_RPAREN
-         | LEN SYM_LPAREN seq_literal SYM_RPAREN
-         | LEN SYM_LPAREN dict_literal SYM_RPAREN 
-         ;
-
-in_expr ::= literal IN IDENT
-        | literal IN seq_decl 
-        | literal IN dict_decl
+number ::= rat
+        | float
+        | integer
         ;
 
-// Typedef Declarations -----------------------------------------
 
-tdef_decl ::= TDEF IDENT SYM_LCRL declaration_list SYM_RCRL;
-
-fdef_decl ::= FDEF type_name IDENT SYM_LPAREN declaration_list SYM_RPAREN SYM_LCRL statement SYM_RCRL
-          | FDEF VOID IDENT SYM_LPAREN declaration_list SYM_RPAREN SYM_LCRL statement SYM_RCRL
+simple_exp ::= number
+          | CHAR_LITERAL
+          | STRING_LITERAL 
+          | sub_ident
+          | simple_exp bin_op simple_exp
+          | SYM_LPAREN simple_exp SYM_RPAREN 
+          | SYM_EXCLPNT simple_exp 
+          | BOOL_LITERAL
+          | len_decl
+          | func_call 
+          | simple_exp IN list
+          | simple_exp IN SYM_LPAREN list SYM_RPAREN
           ;
 
-declaration_list  ::= type_name IDENT 
-                  | type_name IDENT SYM_COMMA declaration_list
+func_call ::= sub_ident SYM_LPAREN cons_decl SYM_LPAREN;
+
+list_decl ::= seq_decl 
+          | dict_decl
+          ;
+
+list ::= concat_decl;
+
+sub_ident ::= IDENT ident_list; 
+
+ident_list ::= ident_list_set | ; 
+
+ident_list_set ::= ident_list_set ident_syn | ident_syn ; 
+
+ident_syn ::= SYM_PERIOD IDENT | splice_syn ;
+
+splice_syn ::= SYM_LSQR splice_syn_set SYM_RSQR; 
+
+splice_syn_set ::= simple_exp SYM_COLON simple_exp;
+
+len_decl ::= LEN SYM_LPAREN simple_exp SYM_RPAREN;
+
+bin_op ::= SYM_PLUS
+        | SYM_MINUS
+        | SYM_STAR
+        | SYM_DIV
+        | SYM_CARET
+        | CONCAT
+        ;
+
+conditionals ::= EQEQ
+             | SYM_LARROW
+             | SYM_RARROW 
+             | GEQ
+             | LEQ
+             | NOTEQ
+             | SYM_AND
+             | SYM_OR
+             ;
+
+
+
+type_def ::= prim_type
+          | aggr_type 
+          | TOP
+          ;
+
+prim_type ::= INT
+          | BOOL
+          | CHAR 
+          | RAT 
+          | FLOAT
+          ;
+
+// so many levels of bruteforce -_- 
+aggr_type ::= SEQ SYM_LARROW type_def SYM_RARROW 
+          | SEQ SYM_LARROW sub_ident SYM_RARROW 
+          | DICT SYM_LARROW type_def SYM_COMMA type_def SYM_RARROW 
+          | DICT SYM_LARROW sub_ident SYM_COMMA type_def SYM_RARROW 
+          |  DICT SYM_LARROW type_def SYM_COMMA sub_ident SYM_RARROW 
+          | DICT SYM_LARROW sub_ident SYM_COMMA sub_ident SYM_RARROW 
+          ;
+
+condition ::= simple_exp conditionals simple_exp ;
+
+assign_decl ::= prim_type sub_ident SYM_EQUAL simple_exp
+            | sub_ident SYM_EQUAL simple_exp 
+            | sub_ident SYM_EQUAL condition
+            | sub_ident SYM_EQUAL sub_ident SYM_EQUAL sub_ident CONCAT concat_decl
+            | sub_ident SYM_EQUAL sub_ident CONCAT concat_decl 
+            | sub_ident sub_ident SYM_EQUAL condition 
+            | prim_type sub_ident SYM_EQUAL condition 
+            | sub_ident sub_ident 
+            | prim_type sub_ident 
+            | SEQ SYM_LARROW type_def SYM_RARROW sub_ident SYM_EQUAL STRING_LITERAL
+            | SEQ SYM_LARROW sub_ident SYM_RARROW sub_ident SYM_EQUAL STRING_LITERAL
+            | SEQ SYM_LARROW sub_ident SYM_RARROW concat_decl 
+            | SEQ SYM_LARROW type_def SYM_RARROW sub_ident SYM_EQUAL concat_decl 
+            | DICT SYM_LARROW type_def SYM_COMMA type_def SYM_RARROW sub_ident SYM_EQUAL dict_list
+            | DICT SYM_LARROW sub_ident SYM_COMMA sub_ident SYM_RARROW sub_ident SYM_EQUAL dict_list 
+            | DICT SYM_LARROW type_def SYM_COMMA sub_ident SYM_RARROW sub_ident SYM_EQUAL dict_list
+            | DICT SYM_LARROW sub_ident SYM_COMMA type_def SYM_RARROW sub_ident SYM_EQUAL dict_list
+            | sub_ident sub_ident SYM_EQUAL cons_decl
+            ;
+
+
+cons_decl ::= cons_list_syntax | ; 
+
+cons_list_syntax ::= cons_list_seg SYM_COMMA cons_list_syntax 
+                  | cons_list_seg
                   ;
 
-alias_decl  ::= ALIAS IDENT IDENT;
-
-
-// Statements ---------------------------------------------------
-
-assignment  ::= decl SYM_EQUAL return_exp 
-            | IDENT SYM_EQUAL return_exp
-            ;
-
-io_calls  ::= READ accessor
-          | PRINT return_exp
-          ;
-
-accessor  ::= IDENT
-          | accessor SYM_PERIOD IDENT
-          ;
-
-function_call ::= IDENT SYM_LPAREN declaration_list SYM_RPAREN;
-
-if_else ::= IFEL SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
-        | IFEL SYM_LPAREN return_exp SYM_RPAREN THEN block FI
-        | IFEL SYM_LPAREN return_exp SYM_RPAREN THEN block ELIF SYM_LPAREN return_exp SYM_RPAREN THEN block ELSE block FI
-        ;
-
-while_do ::= WHILE SYM_LPAREN return_exp SYM_RPAREN DO block OD
-        ;
-
-for_all ::= FORALL SYM_LPAREN return_exp IN aggr_literal SYM_RPAREN DO block OD;
-
-block ::= stat_list 
-      | decl_list
-      | decl_list stat_list
-      ;
-
-stat  ::= function_call
-      | io_calls
-      | return
-      | assignment
-      ;
-
-stat_part ::= stat SYM_SEMI
-          | if_else
-          | while_do
-          | for_all
-          ;
-
-stat_list ::= stat_list stat_part
-          | stat_list
-          ;
-
-declarations  ::= alias_decl
-              | tdef_decl
-              | fdef_decl
-              | assignment
+cons_list_seg ::= simple_exp
+              | list_decl
               ;
 
-decl_list ::= declarations
-          | decl_list declarations
-          ;
+concat_decl ::= concat_list_syntax CONCAT concat_decl 
+            | concat_list_syntax ;
 
-return  ::= RETURN return_exp
-        | RETURN
-        ;
+concat_list_syntax ::= func_call 
+                   | sub_ident 
+                   | seq_decl
+                   ;
 
-// Expressions --------------------------------------------------
-
-decl ::= type_name IDENT | IDENT IDENT;
-
-simple_exp ::= return_exp | assignment;
-
-return_exp  ::= IDENT
-            | return_exp operations return_exp
-            | SYM_EXCLPNT return_exp // does this work? 
-            | literal 
+conditions ::= condition
+            | condition SYM_OR conditions
+            | condition SYM_AND conditions
+            | sub_ident 
+            | SYM_EXCLPNT sub_ident
+            | prim_type
+            | BOOL_LITERAL
+            | len_decl
+            | func_call 
+            | simple_exp IN list
+            | simple_exp IN SYM_LPAREN list SYM_RPAREN
             ;
 
-aggr_literal ::= dict_literal | seq_literal;
+declaration_list ::= declaration_list_syntax | ;
 
-literal ::= BOOL_LITERAL
-        | CHAR_LITERAL
-        | dict_literal
-        | FLOAT_LITERAL
-        | RAT_LITERAL          
-        | seq_literal
-        | signed_int
-        | STRING_LITERAL
-        | unsigned_int
+
+declaration_list_syntax ::= declaration_list_seg SYM_COMMA declaration_list_syntax |
+declaration_list_seg ;
+
+declaration_list_seg ::= prim_type sub_ident
+                      | aggr_type sub_ident
+                      | sub_ident sub_ident
+                      ;
+
+list_container ::= simple_exp 
+               | seq_decl
+               | dict_decl
+               ;
+
+seq_list ::= list_container SYM_COMMA seq_list
+            ;
+
+seq_decl ::= SYM_LSQR seq_list SYM_RSQR
+        | SYM_LPAREN SYM_LSQR seq_list SYM_RSQR SYM_RPAREN
+        | SYM_LPAREN SYM_RPAREN
         ;
 
-operations ::= SYM_PLUS       {: RESULT = new Node("+"); :}
-           | SYM_MINUS      {: RESULT = new Node("-"); :}
-           | SYM_STAR       {: RESULT = new Node("*"); :}
-           | SYM_DIV        {: RESULT = new Node("/"); :}
-           | SYM_CARET      {: RESULT = new Node("^"); :}
-           | SYM_LARROW     {: RESULT = new Node("<"); :}
-           | SYM_RARROW     {: RESULT = new Node(">"); :}
-           | SYM_AND        {: RESULT = new Node("&&"); :}
-           | SYM_OR         {: RESULT = new Node("||"); :}
-           | EQEQ           {: RESULT = new Node("=="); :}
-           | NOTEQ          {: RESULT = new Node("!="); :}
-           | LEQ            {: RESULT = new Node("<="); :}
-           | GEQ            {: RESULT = new Node(">="); :}
-           | CONCAT     {: RESULT = new Node("::"); :}
-           ;
+dict_list ::= SYM_LCRL dict_list_syntax SYM_RCRL
+        | list_container
+        | SYM_LCRL SYM_RCRL 
+        ;
+
+dict_list_syntax ::=  dict_list_seg SYM_COMMA dict_list_syntax | dict_list_seg ;
+
+dict_list_seg ::= dict_list_seg SYM_COLON dict_list_seg;
+
+dict_decl ::= SYM_LCRL dict_list SYM_RCRL
+          | SYM_LPAREN SYM_LSQR dict_list SYM_RSQR SYM_RPAREN
+          ;
+
+type_decl ::= TDEF sub_ident SYM_LCRL declaration_list SYM_RCRL; 
+
+//Control loops! 
+
+logic_decl ::= for_all |
+if_decl | while ;
+
+for_all ::= FORALL SYM_LPAREN sub_ident IN sub_ident SYM_RPAREN DO statements OD; 
+
+if_decl ::= IF SYM_LPAREN conditions SYM_RPAREN THEN statements else_if_decl else_decl FI;
+
+else_if_decl ::= ELIF SYM_LPAREN conditions THEN 
+statements else_if_decl
+| ;
+
+else_decl ::= ELSE statements | ;
+
+while ::= WHILE SYM_LPAREN conditions SYM_RPAREN DO statements OD; 
+
+alias_decl ::= ALIAS type_def sub_ident 
+            | ALIAS sub_ident sub_ident 
+            ;
+
+read_decl ::= READ sub_ident; 
+
+print_decl ::= PRINT simple_exp;
+
+return_decl ::= prim_type 
+            | aggr_type
+            | VOID
+            ;
+
+
+
+
+
+
+
+
+
+

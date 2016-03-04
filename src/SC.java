@@ -13,10 +13,14 @@ class SC {
             try {
                 Parser parser = new Parser(lexer);
                 Symbol result = parser.parse();
+                
+                if(!parser.syntaxErrors){
+                    System.out.println("parsing successful");
+                }
                                 
             } catch (Exception e) {
                 // Commented out because this output is uniformative.  ETB
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
