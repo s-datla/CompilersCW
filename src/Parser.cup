@@ -69,14 +69,24 @@ terminal IDENT, CHAR_LITERAL, INT_LITERAL, STRING_LITERAL, BOOL_LITERAL;
 
 //OTHER
 
-terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD, LET;
+terminal TOP, IN, LEN, TDEF, FDEF, ALIAS, VOID, READ, PRINT, FI, OD;
 
 
 /* Non terminals --------------------------------------*/
 
 nonterminal statements, statement, top_level; 
 
-nonterminal type_name, let_bind, full_exp, simple_exp, operator, literal;
+nonterminal type_name, aggr_type, prim_type, aggr_possible_type, signed_int, unsigned_int, FLOAT_LITERAL, RAT_LITERAL;
+
+nonterminal dict_decl, dict_literal, dict_comma_seperation, element_accsr;
+
+nonterminal seq_decl, seq_comma_seperated, seq_literal, seq_splicing, len_expr, in_exprl
+
+nonterminal tdef_decl, fdef_decl, declaration_list, alias_decl;
+
+nonterminal assignment, io_calls, accessor, function_call, ifelse, whiledo, forall, block, stat, stat_part, stat_list, declarations, decl_list, return;
+
+nonterminal decl, simple_exp, return_exp, aggr_literal, literal, operations;
 
 /* Precedences ----------------------*/
 
